@@ -21,7 +21,7 @@ public class PostController {
         return postService.savePost(post);
     }
 
-    @PutMapping("/updatePost")
+    @PutMapping
     public Post updatePost(@RequestBody Post post){
         return postService.updatePost(post);
     }
