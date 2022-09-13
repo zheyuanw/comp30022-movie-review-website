@@ -13,9 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
-
-
-
 @Service
 public class PostService {
 
@@ -26,18 +23,22 @@ public class PostService {
     private MongoTemplate mongoTemplate;
 
     public Post savePost(Post post) {
+
         return postRepository.save(post);
     }
 
     public Post updatePost(Post post) {
+
         return postRepository.save(post);
     }
 
     public List<Post> getAllPost() {
+
         return postRepository.findAll();
     }
 
     public List<Post> getPostByUserId(String userId) {
+
         return postRepository.findByUserId(userId);
     }
 
