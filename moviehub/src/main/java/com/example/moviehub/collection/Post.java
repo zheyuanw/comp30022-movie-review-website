@@ -26,19 +26,20 @@ public class Post {
     @Id
     private String id;
 
-    //private String userId;
+    private String userId;
     private String movieName;
 
     private String content;
 
-    private String rating;
+    private double rating;
     @CreatedDate
     private Date createdDate;
     @LastModifiedDate
     private Date lastModifiedDate;
 
-    public Post(String id, String movieName, String content, String rating, Date createdDate, Date lastModifiedDate) {
+    public Post(String id, String userId, String movieName, String content, double rating, Date createdDate, Date lastModifiedDate) {
         this.id = id;
+        this.userId = userId;
         this.movieName = movieName;
         this.content = content;
         this.rating = rating;

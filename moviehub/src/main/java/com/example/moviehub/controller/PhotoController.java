@@ -37,4 +37,11 @@ public class PhotoController {
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(resource);
     }
+
+    @PostMapping("/edit")
+    public String updatePhoto(@RequestParam("image") MultipartFile image, @RequestParam String id) throws IOException {
+        String pid = photoService.addPhoto(image.getOriginalFilename(),image);
+        photoService.deletePhoto(id);
+        return pid;
+    }
 }

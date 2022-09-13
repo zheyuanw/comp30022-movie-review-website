@@ -18,12 +18,19 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
     @Id
-    private String userId;
+    private String id;
     private String userName;
     private String password;
     private String email;
     private Integer age;
-    @DBRef
-    private Photo photo;
+    private String photoId;
 
+    public User(String id, String userName, String password, String email, Integer age, String photoId) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+        this.age = age;
+        this.photoId = photoId;
+    }
 }
