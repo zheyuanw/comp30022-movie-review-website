@@ -42,6 +42,7 @@ public class PostService {
     }
 
     public List<Post> getPostByName(String movieName) {
+
         return postRepository.findByMovieName(movieName);
     }
 
