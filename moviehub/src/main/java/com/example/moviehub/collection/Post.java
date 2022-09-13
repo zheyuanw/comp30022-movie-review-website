@@ -31,15 +31,17 @@ public class Post {
 
     private String content;
 
+    private String rating;
     @CreatedDate
     private Date createdDate;
     @LastModifiedDate
     private Date lastModifiedDate;
 
-    public Post(String id, String movieName, String content, Date createdDate, Date lastModifiedDate) {
+    public Post(String id, String movieName, String content, String rating, Date createdDate, Date lastModifiedDate) {
         this.id = id;
         this.movieName = movieName;
         this.content = content;
+        this.rating = rating;
         this.createdDate = createdDate;
         this.lastModifiedDate = lastModifiedDate;
     }
