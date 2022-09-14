@@ -59,4 +59,8 @@ public class PostService {
         List<Document> results = mongoTemplate.aggregate(aggregation, Post.class, Document.class).getMappedResults();
         return results;
     }
+
+    public void deletePost(String id) {
+        postRepository.deleteById(id);
+    }
 }
