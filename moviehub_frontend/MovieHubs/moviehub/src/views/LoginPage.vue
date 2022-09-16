@@ -10,12 +10,6 @@
     :cell-style="{ 'text-align': 'center'}"
   >
 
-  <!-- <form>
-	<input pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" required />
-	<br />
-	<input type="submit" value="Submit Now!">
-</form> -->
-
     <el-form-item class = "languagecolour" label="Email" prop="pass">
       <el-input  class = "inputform" v-model="ruleForm.pass" type="email" autocomplete="off"/>
     </el-form-item>
