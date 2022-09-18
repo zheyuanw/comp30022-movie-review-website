@@ -10,24 +10,27 @@
     :cell-style="{ 'text-align': 'center'}"
   >
 
+
     <el-form-item class = "languagecolour" label="Email" prop="pass">
       <el-input  class = "inputform" v-model="ruleForm.pass" type="email" autocomplete="off"/>
     </el-form-item>
-    <el-form-item class = "languagecolour" label="Password" prop="checkPass">
+    <el-form-item class = "languagecolour" label="New Password" prop="checkPass">
       <el-input
         class = "inputform"
         v-model="ruleForm.checkPass"
         type="password"
         autocomplete="off"
       />
-      <a href="http://localhost:8080/#/moviehub/forgetpassword" class="forgetpass">Forget password? Click here</a>
     </el-form-item>
-    <a href="http://localhost:8080/#/moviehub/registerpage" class="registerlink">If you dont have an account, register here</a>
-    <el-form-item class="loginresetbutton">
+    <el-form-item class = "languagecolour" label="confirm password" prop="confirmPass">
+      <el-input  class = "inputform" v-model="ruleForm.confirmPass" type="Password" autocomplete="off"/>
+    </el-form-item>
+   
+    <el-form-item>
       <el-button type="primary" @click="submitForm(ruleFormRef)"
-        >Log in</el-button
+        >Reset password</el-button
       >
-      <el-button @click="resetForm(ruleFormRef)" >Reset</el-button>
+
     </el-form-item>
   </el-form>
 
@@ -65,17 +68,33 @@ const validatePass2 = (rule: any, value: any, callback: any) => {
       console.log("密码格式错误")
       callback(new Error('Please input correct form of password'))
     }
+    if (ruleForm.confirmPass !== '') {
+      if (!ruleFormRef.value) return
+      ruleFormRef.value.validateField('confirmPass', () => null)
+    }
+    callback()
+  }
+}
+const validatePass3 = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('Please input the password again'))
+  } else if (value !== ruleForm.checkPass) {
+    callback(new Error("Two inputs don't match!"))
+  } else {
+    callback()
   }
 }
 
 const ruleForm = reactive({
   pass: '',
   checkPass: '',
+  confirmPass: ''
 })
 
 const rules = reactive({
   pass: [{ validator: validatePass, trigger: 'blur' }],
   checkPass: [{ validator: validatePass2, trigger: 'blur' }],
+  confirmPass: [{ validator: validatePass3, trigger: 'blur' }]
 
 })
 
@@ -100,20 +119,6 @@ const resetForm = (formEl: FormInstance | undefined) => {
 <style >
 .languagecolour .el-form-item__label {
   color: #FF9900;
-  
-}
-.loginresetbutton{
-  margin:10px;
-}
-.registerlink{
-  color: rgba(75, 75, 243, 0.767);
-  text-decoration:none;
-  margin-left: 150px ;
-}
-.forgetpass{
-  color:#FF9900;
-  text-decoration:none;
-  margin-left:10px
 }
 .inputform {
   width: 50%;

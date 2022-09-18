@@ -116,7 +116,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
 }
 </script>
 
-<style >
+<style>
 .languagecolour .el-form-item__label {
   color: #FF9900;
 }
