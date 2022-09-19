@@ -11,7 +11,7 @@
   >
 
     <el-form-item class = "languagecolour" label="Email" prop="pass">
-      <el-input  class = "inputform" v-model="ruleForm.pass" type="email" autocomplete="off"/>
+      <el-input class = "inputform" v-model="ruleForm.pass" type="email" autocomplete="off"/>
     </el-form-item>
     <el-form-item class = "languagecolour" label="Password" prop="checkPass">
       <el-input

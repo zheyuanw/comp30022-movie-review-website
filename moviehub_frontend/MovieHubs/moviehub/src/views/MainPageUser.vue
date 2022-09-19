@@ -169,8 +169,8 @@
     }
     .avatar{
   position:fixed;
-  top:16px;
-  right:35px
+  top:11.5px;
+  right:30px
 }
 
     

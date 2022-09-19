@@ -20,7 +20,7 @@ const routes = [
     component: () => import('@/views/MainPageVisitor.vue'),
   },
   {
-    path: '/Moviehub/mainpageuser/:userID(\\d+)',
+    path: '/Moviehub/mainpageuser/:userID',
     name: 'MoviemainPage2',
     meta: {
       index: true,
@@ -29,7 +29,7 @@ const routes = [
     component: () => import('@/views/MainPageUser.vue'),
   },
   {
-    path: '/Moviehub/dashboard/:userID(\\d+)',
+    path: '/Moviehub/dashboard/:userID',
     name: 'MovieDashbord',
     meta: {
       index: true,
@@ -38,7 +38,7 @@ const routes = [
     component: () => import('@/views/DashBoard.vue'),
   },
   {
-    path: '/Moviehub/dashboard/:userID(\\d+)/edit',
+    path: '/Moviehub/dashboard/:userID/edit',
     name: 'MovieDashbordedit',
     meta: {
       index: true,
@@ -47,7 +47,7 @@ const routes = [
     component: () => import('@/views/EditPage.vue'),
   },
   {
-    path: '/Moviehub/dashboard/:userID(\\d+)/post',
+    path: '/Moviehub/dashboard/:userID/post',
     name: 'MovieDashbordpost',
     meta: {
       index: true,
@@ -56,15 +56,6 @@ const routes = [
     component: () => import('@/views/PostPage.vue'),
   },
 
-  {
-    path: '/Moviehub/SingleEditDelete/:userID(\\d+)',
-    name: 'editdelete',
-    meta: {
-      title: '修改删除界面',
-      needLogin: true,
-    },
-    component: () => import('@/views/EditDelete.vue'),
-  },
   {
     path: '/Moviehub/registerpage',
     name: 'Register',
@@ -94,7 +85,7 @@ const routes = [
     component: () => import('@/views/ContentVisitor.vue'),
   },
   {
-    path: '/Moviehub/contentpage/:userID(\\d+)',
+    path: '/Moviehub/contentpage/:userID',
     name: 'ContentPageUser',
     meta: {
       index: true,
@@ -103,7 +94,7 @@ const routes = [
     component: () => import('@/views/ContentUser.vue'),
   },
   {
-    path: '/Moviehub/dashboard/:userID(\\d+)/setting',
+    path: '/Moviehub/dashboard/:userID/setting',
     name: 'SettingPage',
     meta: {
       index: true,
