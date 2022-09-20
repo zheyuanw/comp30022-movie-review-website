@@ -18,8 +18,18 @@
         
         <el-form-item label = "Movie title: " class="movietitle">
           <el-input class="movietitleinput" style = "width: 300px" v-model="input" placeholder="Please input movie title" />
-        </el-form-item>
-        
+        </el-form-item >
+        <el-form-item label = "Movie genre: " class="genre">
+        <el-select v-model="value" class="select" placeholder="filter">
+    <el-option
+      v-for="item in options"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value"
+
+    />
+  </el-select>
+</el-form-item>
         <el-form-item label = "Review: " class="labelcolor">
         <el-input
         v-model="textarea"
@@ -83,7 +93,44 @@ import HubIcon from '@/components/HubIcon.vue';
 const input = ref('')
 const textarea = ref('')
 const value = ref()
-
+const options = [
+      {
+        value: 'Drama',
+        label: 'Drama',
+      },
+      {
+        value: 'Comedy',
+        label: 'Comedy',
+      },
+      {
+        value: 'Horror',
+        label: 'Horror',
+      },
+      {
+        value: 'Thriller',
+        label: 'Thriller',
+      },
+      {
+        value: 'Action',
+        label: 'Action',
+      },
+      {
+        value: 'Sci-fi',
+        label: 'Sci-fi',
+      },
+      {
+        value: 'Crime',
+        label: 'Crime',
+      },
+      {
+        value: 'Adventure',
+        label: 'Adventure',
+      },
+      {
+        value: 'Other',
+        label: 'Other',
+      },
+     ]
 const fileList = ref<UploadUserFile[]>([
 
 ])
@@ -164,6 +211,13 @@ background-color: #222231;
 }
 
 .movietitle .el-form-item__label {
+  color: orange
+}
+.genre{
+  margin-top:50px;
+   margin-left:330px;
+}
+.genre .el-form-item__label {
   color: orange
 }
 

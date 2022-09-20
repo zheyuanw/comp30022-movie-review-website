@@ -121,17 +121,7 @@
       background-color: black;
     
       }
-      .hub {
-      display: inline;
-      font-family: sans-serif;
-      font-weight: bold;
-      font-size: 3vw;
-      position: fixed;
-      top:25px;
-      left: 7%;
-      transform: translate(-50%, -50%);
-    
-      }
+      
     .search{
       width:45%;
       margin-top: 15px;

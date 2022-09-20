@@ -19,13 +19,8 @@
   </template>
   <script lang="ts" setup>
     import { ref } from 'vue'
-    import { Search } from '@element-plus/icons-vue'
-import HubIcon from '@/components/HubIcon.vue';
-    const input1 = ref('')
-    const value = ref('')
-    const value2=ref('')
+    import HubIcon from '@/components/HubIcon.vue';
   
-   
     </script>
   <style>
     .header{
