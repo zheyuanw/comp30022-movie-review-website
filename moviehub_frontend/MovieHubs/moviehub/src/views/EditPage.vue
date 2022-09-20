@@ -36,7 +36,7 @@
         ></el-rate>
         
       </el-form-item>
-      <el-form-item label="Add poster：" class="labelcolor">
+      <el-form-item label="Add poster: " class="labelcolor">
         <el-upload
     v-model:file-list="fileList"
     class="upload-demo"
@@ -47,7 +47,7 @@
     :before-remove="beforeRemove"
     :limit="1"
     :on-exceed="handleExceed"
-    
+    :auto-upload="false"
   >
     <el-button type="primary">Click to upload</el-button>
     <template #tip>
@@ -65,10 +65,7 @@
       
     </div>
     
-    <div class="hub">
-  <span contenteditable="true">Movie</span>
-  <span contenteditable="true">Hub</span>
-  </div>
+    <HubIcon/>
   </template>
 
 
@@ -77,6 +74,7 @@
     import { ElMessage, ElMessageBox } from 'element-plus'
 
 import type { UploadProps, UploadUserFile } from 'element-plus'
+import HubIcon from '@/components/HubIcon.vue';
 const input = ref('')
 const textarea = ref('')
 const value = ref()
@@ -113,46 +111,19 @@ const beforeRemove: UploadProps['beforeRemove'] = (uploadFile, uploadFiles) => {
 
 <style>
   body {
-margin: 0;
-min-height: 100%;
-height: 100%;
-position: relative;
+
 background-color: #222231;
 }
   .header{
   background-color: black;
 
   }
-  .hub {
-  display: inline;
-  font-family: sans-serif;
-  font-weight: bold;
-  font-size: 3vw;
-  position: fixed;
-  top:25px;
-  left: 5%;
-  transform: translate(-50%, -50%);
-
-  }
-
-  .hub span:nth-child(1) {
-color: white;
-font-size:large;
-
-}
-.hub span:nth-child(2) {
-background: #FF9900;
-color: black;
-border-radius: 1vw;
-padding: 0 1vw 1vw 1vw;
-display: inline-block;
-font-size:large;
-}
+  
 
 .avatar{
-  position:fixed;
+  position:relative;
   top:11.5px;
-  right:30px
+  right:-600px
 }
 .LRbutton{
   width:10%;
@@ -164,7 +135,7 @@ font-size:large;
   
 }
 .upload-demo{
-  margin-left:-60px;
+  margin-left:-55px;
 }
 .edithere{
   position: absolute;

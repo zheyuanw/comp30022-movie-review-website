@@ -10,6 +10,22 @@
     :cell-style="{ 'text-align': 'center'}"
   >
 
+  <el-form-item class = "languagecolour" label="Username">
+    <el-input class = "inputform" v-model="ruleForm.checkusername" maxlength=16 placeholder="Jack" />
+  </el-form-item>
+  <el-form-item class = "languagecolour" label="Gender">
+    <el-select v-model="value" class="m-2" placeholder="Select" size="large">
+    <el-option
+      v-for="item in options"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value"
+    />
+  </el-select>
+  </el-form-item>
+  <el-form-item class = "languagecolour" label="Age">
+    <el-input-number v-model="age" :min="1" :max="120" @change="handleChange" />
+  </el-form-item>
 
     <el-form-item class = "languagecolour" label="Email" prop="pass">
       <el-input  class = "inputform" v-model="ruleForm.pass" type="email" autocomplete="off"/>
@@ -33,22 +49,31 @@
       <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
     </el-form-item>
   </el-form>
-
-
-  <div class="hub">
-<span contenteditable="true">Movie</span>
-<span contenteditable="true">Hub</span>
-</div>
-
-
+<HubIcon/>
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import type { FormInstance } from 'element-plus'
-
+import HubIcon from '@/components/HubIcon.vue';
 const ruleFormRef = ref<FormInstance>()
-
+  const input = ref('')
+  const value = ref('')
+  const age = ref(1)
+  const options = [
+  {
+    value: 'Male',
+    label: 'Male',
+  },
+  {
+    value: 'Female',
+    label: 'Female',
+  },
+  
+]
+const handleChange = (value: number) => {
+  console.log(value)
+}
 const validatePass = (rule: any, value: any, callback: any) => {
   const reg = /^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+$/;
   if (!value) {
@@ -84,18 +109,26 @@ const validatePass3 = (rule: any, value: any, callback: any) => {
     callback()
   }
 }
+const validatePass4 = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('Please input the username'))
+  } else {
+    callback()
+  }
+}
 
 const ruleForm = reactive({
   pass: '',
   checkPass: '',
-  confirmPass: ''
+  confirmPass: '',
+  checkusername:''
 })
 
 const rules = reactive({
   pass: [{ validator: validatePass, trigger: 'blur' }],
   checkPass: [{ validator: validatePass2, trigger: 'blur' }],
-  confirmPass: [{ validator: validatePass3, trigger: 'blur' }]
-
+  confirmPass: [{ validator: validatePass3, trigger: 'blur' }],
+  checkusername: [{ validator: validatePass4, trigger: 'blur' }]
 })
 
 const submitForm = (formEl: FormInstance | undefined) => {
@@ -125,37 +158,10 @@ const resetForm = (formEl: FormInstance | undefined) => {
 }
 .demo-ruleForm {
  text-align:left; border-radius: 8px;margin: 0 auto;width:50%;
-  position:fixed;top:220px;left:325px;font-weight: bold;
-}
-.hub {
-  display: inline;
-  font-family: sans-serif;
-  font-weight: bold;
-  font-size: 3vw;
-  position: fixed;
-  top:35px;
-  left: 10%;
-  transform: translate(-50%, -50%);
-
-  }
-
-  .hub span:nth-child(1) {
-color: white;
-
-}
-.hub span:nth-child(2) {
-background: #FF9900;
-color: black;
-border-radius: 1vw;
-padding: 0 1vw 1vw 1vw;
-display: inline-block;
+  position:fixed;top:140px;left:325px;font-weight: bold;
 }
 body {
 background-image:url('https://scontent.fmel5-1.fna.fbcdn.net/v/t39.30808-6/306272199_1256917685131734_3537777224371844189_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=cwpl-5Xjt7UAX8eKLBr&_nc_ht=scontent.fmel5-1.fna&oh=00_AT9gjDR6Uo4lsrcF4lTvRGKOiaiSau53dI3mdJdh_gRWGw&oe=6329FC9B');
-margin: 0;
-min-height: 100%;
-height: 100%;
-position: relative;
 }
 
 
