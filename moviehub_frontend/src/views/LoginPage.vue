@@ -119,7 +119,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
 }
 
 body {
-background-image:url('https://scontent.fmel5-1.fna.fbcdn.net/v/t39.30808-6/306272199_1256917685131734_3537777224371844189_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=cwpl-5Xjt7UAX8eKLBr&_nc_ht=scontent.fmel5-1.fna&oh=00_AT9gjDR6Uo4lsrcF4lTvRGKOiaiSau53dI3mdJdh_gRWGw&oe=6329FC9B');
+background-image:url('https://wallpapercave.com/dwp2x/wp11089675.jpg');
 }
 
 
