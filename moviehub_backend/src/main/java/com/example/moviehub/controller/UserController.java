@@ -30,10 +30,9 @@ public class UserController {
     }
 
     @PostMapping(value = "/email")
-    public String verifyEmail(@RequestBody String email) {
-        System.out.println(email);
-
-        registerService.sendEmailVerificationCode(email);
+    public String verifyEmail(@RequestBody RegisterForm registerForm) {
+        System.out.println(registerForm.getEmail());
+        registerService.sendEmailVerificationCode(registerForm.getEmail());
         return "Email Sent";
     }
 

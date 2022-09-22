@@ -6,6 +6,19 @@ public class RegisterForm {
     private String password;
     private String verificationCode;
 
+    public RegisterForm(String email, String password, String verificationCode) {
+        this.email = email;
+        this.password = password;
+        this.verificationCode = verificationCode;
+    }
+
+    public RegisterForm() {
+    }
+
+    public RegisterForm(String email) {
+        this.email = email;
+    }
+
     public String getEmail() {
         return email;
     }

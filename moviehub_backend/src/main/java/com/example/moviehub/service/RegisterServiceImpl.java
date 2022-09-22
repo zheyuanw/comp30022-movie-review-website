@@ -24,10 +24,14 @@ public class RegisterServiceImpl implements RegisterService{
 
         String code = VerificationCodeUtil.generateCode();
         if (redisService.existKey(email)){
+            System.out.println("update");
+            System.out.println(redisService.getString(email).toString());
             redisService.updateString(email, code);
         }else{
+            System.out.println("set");
             redisService.setString(email, code);
         }
+        System.out.println(code);
         emailService.sendMail(email, "Verification Code", code);
     }
 
@@ -35,6 +39,7 @@ public class RegisterServiceImpl implements RegisterService{
     @Override
     public boolean register(RegisterForm registerForm) {
         String email = registerForm.getEmail();
+        System.out.println(email);
         String redis_code;
 
         //if there is a corresponding code in redis
@@ -46,6 +51,8 @@ public class RegisterServiceImpl implements RegisterService{
                 userService.registerUser(registerForm);
                 return true;
             }
+        }else{
+            System.out.println("Email not found");
         }
         return false;
     }
