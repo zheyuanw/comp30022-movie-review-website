@@ -30,6 +30,16 @@ public class UserController {
         }else{
             return "Register Failed";
         }
+    }
+
+    @PostMapping(value = "/login")
+    public String login(@RequestBody User user) {
+        System.out.println(user);
+        if (userService.loginUser(user)){
+            return "Login succeeded";
+        }else{
+            return "Login Failed";
+        }
 
     }
 
