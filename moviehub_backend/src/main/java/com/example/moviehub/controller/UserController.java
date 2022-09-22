@@ -2,7 +2,8 @@ package com.example.moviehub.controller;
 
 
 import com.example.moviehub.collection.User;
-import com.example.moviehub.service.UserService;
+import com.example.moviehub.service.UserServiceImpl;
+import com.example.moviehub.util.JWTutil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    UserService userService;
+    UserServiceImpl userService;
 
     @PostMapping
     public String save(@RequestBody User user){
@@ -23,5 +24,24 @@ public class UserController {
     }
 
 
+    @PostMapping(path = "/register")
+    public String register(@RequestBody User user){
+        if (userService.registerUser(user)){
+            return "Register succeeded";
+        }else{
+            return "Register Failed";
+        }
+    }
+
+    @PostMapping(value = "/login")
+    public String login(@RequestBody User user) {
+        System.out.println(user);
+        if (userService.loginUser(user)){
+            return JWTutil.generateToken(user).toString();
+        }else{
+            return "Login Failed";
+        }
+
+    }
 
 }
