@@ -3,12 +3,10 @@ package com.example.moviehub.controller;
 
 import com.example.moviehub.collection.RegisterForm;
 import com.example.moviehub.collection.User;
-import com.example.moviehub.service.EmailServiceImpl;
 import com.example.moviehub.service.RegisterServiceImpl;
 import com.example.moviehub.service.UserServiceImpl;
-import com.example.moviehub.util.JWTutil;
+import com.example.moviehub.util.JWTtokenUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -49,7 +47,7 @@ public class UserController {
     public String login(@RequestBody User user) {
         System.out.println(user);
         if (userService.loginUser(user)){
-            return JWTutil.generateToken(user).toString();
+            return JWTtokenUtil.generateToken(user).toString();
         }else{
             return "Login Failed";
         }

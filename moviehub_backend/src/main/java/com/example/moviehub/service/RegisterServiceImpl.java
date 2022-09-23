@@ -32,7 +32,7 @@ public class RegisterServiceImpl implements RegisterService{
             redisService.setString(email, code);
         }
         System.out.println(code);
-        emailService.sendMail(email, "Verification Code", code);
+//        emailService.sendMail(email, "Verification Code", code);
     }
 
 
