@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class JWTtokenUtil {
 
@@ -51,9 +52,10 @@ public class JWTtokenUtil {
         return false;
     }
 
-    public String getUserEmail(String token){
+    public static String getUserEmail(String token){
         String subject = JWT.decode(token).getSubject();
 
-        return  subject.split(",")[1];
+        System.out.println("token_subject:" +  subject);
+        return  subject;
     }
 }
