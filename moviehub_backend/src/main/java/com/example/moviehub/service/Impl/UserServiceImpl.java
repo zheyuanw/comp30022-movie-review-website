@@ -1,14 +1,20 @@
-package com.example.moviehub.service;
+package com.example.moviehub.service.Impl;
 
 
 import com.example.moviehub.collection.RegisterForm;
 import com.example.moviehub.collection.User;
 import com.example.moviehub.repository.UserRepository;
+import com.example.moviehub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
@@ -50,6 +56,16 @@ public class UserServiceImpl implements UserService{
                 System.out.println("Wrong password");
                 return false;
             }
+        }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = getUserByEmail(email);
+        if (user == null){
+            throw new UsernameNotFoundException("User not found with email: " + email);
+        }else {
+            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
         }
     }
 }

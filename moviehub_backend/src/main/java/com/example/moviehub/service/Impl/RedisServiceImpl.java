@@ -1,6 +1,6 @@
-package com.example.moviehub.service;
+package com.example.moviehub.service.Impl;
 
-import lombok.RequiredArgsConstructor;
+import com.example.moviehub.service.RedisService;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class RedisServiceImpl implements RedisService{
+public class RedisServiceImpl implements RedisService {
 
     @Resource
     private StringRedisTemplate stringRedisTemplate;

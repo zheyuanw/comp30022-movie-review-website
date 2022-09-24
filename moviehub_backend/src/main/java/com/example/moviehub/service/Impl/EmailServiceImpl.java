@@ -1,5 +1,6 @@
-package com.example.moviehub.service;
+package com.example.moviehub.service.Impl;
 
+import com.example.moviehub.service.EmailService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

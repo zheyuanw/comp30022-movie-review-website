@@ -1,6 +1,7 @@
-package com.example.moviehub.service;
+package com.example.moviehub.service.Impl;
 
 import com.example.moviehub.collection.RegisterForm;
+import com.example.moviehub.service.RegisterService;
 import com.example.moviehub.util.VerificationCodeUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class RegisterServiceImpl implements RegisterService{
+public class RegisterServiceImpl implements RegisterService {
 
 
     private final EmailServiceImpl emailService;
