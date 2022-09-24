@@ -3,6 +3,7 @@
     <div class="common-layout">
         <el-container>
           <el-header class="header">
+            
             <el-input
           v-model="input1"
           class="search"
@@ -27,15 +28,27 @@
           
         />
       </el-select>
-      <div class="avatar">
-      <el-avatar
+      <el-popover
+    :width="50"
+    trigger="hover"
+    
+  >
+  <el-button @click="$router.push('/moviehub/loginpage')" class="logoutbutton">logout</el-button>
+    <el-button @click="$router.push('/moviehub/changepassword/1234')">change password</el-button>
+    <template #reference>
+      <div class="avatar" >
+        <el-avatar 
         src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-      />
+        @click="$router.push('/moviehub/dashboard/1234')"
+          /><!--头像-->
+          
     </div>
+    </template>
+    </el-popover>
           </el-header>
           <el-main>
             <div class="recommend">Recommend movies</div>
-            <el-button type="warning" round class="LRbutton">Add Post</el-button>  
+            <el-button type="warning" round class="LRbutton" @click="$router.push('/moviehub/dashboard/post/1234')">Add Post</el-button>  
             <el-divider />
           </el-main>
           
@@ -48,6 +61,7 @@
       import { ref } from 'vue'
       import { Search } from '@element-plus/icons-vue'
       import HubIcon from '@/components/HubIcon.vue';
+
       const input1 = ref('')
       const value = ref('')
       const value2=ref('')
@@ -117,9 +131,18 @@
 .demo-type > div:not(:last-child) {
   border-right: 1px solid var(--el-border-color);
 }
+.logoutbutton{
+  margin-bottom:10px;
+  margin-left: 45px;
+}
       .header{
       background-color: black;
     
+      }
+
+      .LRbutton{
+        position:relative;
+        left:580px;
       }
       
     .search{
@@ -136,10 +159,9 @@
       font-weight:bold;
     }
     .avatar{
-  position:fixed;
-  top:11.5px;
-  right:30px
+  position:relative;
+  top:-36.5px;
+  right:-600px
 }
 
-    
     </style>

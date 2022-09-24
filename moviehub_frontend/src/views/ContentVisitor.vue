@@ -4,12 +4,9 @@
       <el-container>
         <el-header class="header">
           
-    
-      <el-button type="warning" round class="LRbutton">Login/Register</el-button>  
+      <el-button type="warning" round class="LRbutton" @click="$router.push('/moviehub/loginpage')">Login/Register</el-button>  
         </el-header>
         <el-main>
-          
-  
         </el-main>
         
       </el-container>

@@ -4,11 +4,7 @@
   <div class="common-layout">
       <el-container>
         <el-header class="header">
-          <div class="avatar">
-        <el-avatar
-        src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-          /><!--头像-->
-        </div>
+          <AvatarIcon/>
         </el-header>
         <el-main class="main">
 
@@ -60,7 +56,7 @@
       
       
     </el-form>
-    <el-button type="warning" round class="LRbutton">Save</el-button> 
+    <el-button type="warning" round class="LRbutton" @click="$router.push('/moviehub/dashboard/1234')">Save</el-button> 
   </el-container>
       
     </div>
@@ -75,7 +71,7 @@
 
 import type { UploadProps, UploadUserFile } from 'element-plus'
 import HubIcon from '@/components/HubIcon.vue';
-const input = ref('')
+import AvatarIcon from '@/components/AvatarIcon.vue';
 const textarea = ref('')
 const value = ref()
 
@@ -119,12 +115,6 @@ background-color: #222231;
 
   }
   
-
-.avatar{
-  position:relative;
-  top:11.5px;
-  right:-600px
-}
 .LRbutton{
   width:10%;
   margin-left:530px;

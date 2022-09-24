@@ -5,23 +5,12 @@
       <el-container>
         <el-header class="header" >
           
-          <div class="avatar">
-        <el-avatar
-        src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-          /><!--头像-->
-        </div>
-        <el-link>
-          <el-button type="primary" class="homeicon">Dashboard</el-button>
-        </el-link>
-        <el-link>
-          <el-button type="primary" class="home">Home</el-button>
-        </el-link>
+          <AvatarIcon/>
+      
         </el-header>
         
         <el-form class="allform"
-        ref="ruleFormRef"
-        :rules="rules"
-        status-icon
+      
         >
           
         <el-form-item label = "Username: " class="movietitle">
@@ -40,17 +29,7 @@
         <el-form-item class = "languagecolour" label="Age">
     <el-input-number class="ageoption" style = "width: 300px" v-model="age" :min="1" :max="120" @change="handleChange" />
   </el-form-item>
-  <el-form-item class = "languagecolour" label="New Password" prop="checkPass">
-      <el-input
-        class = "inputform"
-        v-model="ruleForm.checkPass"
-        type="password"
-        autocomplete="off"
-      />
-    </el-form-item>
-    <el-form-item class = "languagecolour" label="confirm password" prop="confirmPass">
-      <el-input  class = "inputform" v-model="ruleForm.confirmPass" type="Password" autocomplete="off"/>
-    </el-form-item>
+
       <el-form-item label="Add avatar:" class="labelcolor">
         <el-upload
     v-model:file-list="fileList"
@@ -76,7 +55,7 @@
       
       
     </el-form>
-    <el-button type="warning" round class="LRbutton">Save</el-button> 
+    <el-button type="warning" round class="LRbutton" @click="$router.push('/moviehub/dashboard/1234')">Save</el-button> 
   </el-container>
       
     </div>
@@ -88,12 +67,11 @@
   <script lang="ts" setup>
     import { ElMessage, ElMessageBox } from 'element-plus'
     import { reactive, ref } from 'vue'
-import type { FormInstance } from 'element-plus'
 import type { UploadProps, UploadUserFile } from 'element-plus'
 import HubIcon from '@/components/HubIcon.vue';
-const ruleFormRef = ref<FormInstance>()
+import AvatarIcon from '../components/AvatarIcon.vue';
+
 const input = ref('')
-const textarea = ref('')
 const value = ref()
 const age = ref(1)
 
@@ -103,54 +81,7 @@ const fileList = ref<UploadUserFile[]>([
 const handleChange = (value: number) => {
   console.log(value)
 }
-const validatePass2 = (rule: any, value: any, callback: any) => {
-  if (value === '') {
-    callback(new Error('Please input the password'))
-  } else {
-    if (value!='' && ((ruleForm.checkPass.length < 8 || ruleForm.checkPass.length > 16))){
-      console.log("密码格式错误")
-      callback(new Error('Please input correct form of password'))
-    }
-    if (ruleForm.confirmPass !== '') {
-      if (!ruleFormRef.value) return
-      ruleFormRef.value.validateField('confirmPass', () => null)
-    }
-    callback()
-  }
-}
-const validatePass3 = (rule: any, value: any, callback: any) => {
-  if (value === '') {
-    callback(new Error('Please input the password again'))
-  } else if (value !== ruleForm.checkPass) {
-    callback(new Error("Two inputs don't match!"))
-  } else {
-    callback()
-  }
-}
-const rules = reactive({
 
-  checkPass: [{ validator: validatePass2, trigger: 'blur' }],
-  confirmPass: [{ validator: validatePass3, rigger: 'blur' }],
-  
-})
-
-const ruleForm = reactive({
-  
-  checkPass: '',
-  confirmPass: '',
-  
-})
-const submitForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  formEl.validate((valid) => {
-    if (valid) {
-      console.log('submit!')
-    } else {
-      console.log('error submit!')
-      return false
-    }
-  })
-}
 const options = [
   {
     value: '0',
@@ -203,11 +134,7 @@ background-color: #222231;
   background-color: black;
 
   }
-.avatar{
-  position:relative;
-  top:11.5px;
-  right:-600px
-}
+
 .LRbutton{
   width:10%;
   margin-left:590px;
@@ -219,11 +146,6 @@ background-color: #222231;
 }
 .upload-demo{
   margin-left:-50px;
-}
-.posthere{
-  position: absolute;
-  font-weight: bold;
-  font-size: x-large;
 }
 .movietitle{
    margin-top:50px;
@@ -258,30 +180,12 @@ background-color: #222231;
 .movietitleinput{
   width:50%;
 }
-.homeicon{
-  width:150%;
-  position:relative;
-  top:-30px;
-  left:-400px;
-
-  
-}
-.home{
-  width:150%;
-  position:relative;
-  top:-30px;
-  left:-380px;
-
-  
-}
 .genderoption{
   margin-left:17px;
 }
-.homelink {
-  text-decoration: none;
-}
+
 .ageoption{
-  margin-left: 40px;
+  margin-left: 42px;
 }
 .allform{
   margin-left:100px;

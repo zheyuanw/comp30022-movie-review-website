@@ -38,7 +38,7 @@ const routes = [
     component: () => import('@/views/DashBoard.vue'),
   },
   {
-    path: '/Moviehub/dashboard/:userID/edit',
+    path: '/Moviehub/dashboard/edit/:userID',
     name: 'MovieDashbordedit',
     meta: {
       index: true,
@@ -47,7 +47,7 @@ const routes = [
     component: () => import('@/views/EditPage.vue'),
   },
   {
-    path: '/Moviehub/dashboard/:userID/post',
+    path: '/Moviehub/dashboard/post/:userID',
     name: 'MovieDashbordpost',
     meta: {
       index: true,
@@ -74,6 +74,15 @@ const routes = [
     },
     component: () => import('@/views/ForgetPassword.vue'),
   },
+  {
+    path: '/Moviehub/changepassword/:userID',
+    name: 'changepassword',
+    meta: {
+      title: '改变密码',
+      needLogin: true,
+    },
+    component: () => import('@/views/ChangePassword.vue'),
+  },
 
   {
     path: '/Moviehub/contentpage',
@@ -94,7 +103,7 @@ const routes = [
     component: () => import('@/views/ContentUser.vue'),
   },
   {
-    path: '/Moviehub/dashboard/:userID/setting',
+    path: '/Moviehub/dashboard/setting/:userID',
     name: 'SettingPage',
     meta: {
       index: true,

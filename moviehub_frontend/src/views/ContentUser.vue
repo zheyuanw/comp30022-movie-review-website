@@ -4,11 +4,7 @@
       <el-container>
         <el-header class="header">
          
-    <div class="avatar">
-    <el-avatar
-      src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-    />
-  </div>
+    <AvatarIcon/>
         </el-header>
         <el-main>
         
@@ -21,13 +17,11 @@
   </template>
   <script lang="ts" setup>
     import { ref } from 'vue'
-    import { Search } from '@element-plus/icons-vue'
+
 import HubIcon from '@/components/HubIcon.vue';
-    const input1 = ref('')
-    const value = ref('')
-    const value2=ref('')
+import AvatarIcon from '@/components/AvatarIcon.vue';
+
   
-   
     </script>
   <style scoped>
       .demo-type {
@@ -59,11 +53,4 @@ border-right: 1px solid var(--el-border-color);
     font-size:x-large;
     font-weight:bold;
   }
-  .avatar{
-position:fixed;
-top:11.5px;
-right:30px
-}
-
-  
   </style>

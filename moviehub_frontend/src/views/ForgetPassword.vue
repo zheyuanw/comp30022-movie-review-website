@@ -25,9 +25,13 @@
     <el-form-item class = "languagecolour" label="confirm password" prop="confirmPass">
       <el-input  class = "inputform" v-model="ruleForm.confirmPass" type="Password" autocomplete="off"/>
     </el-form-item>
-   
+  
+    <el-form-item class = "languagecolour"  label="verification code" prop="checkverificationcode">
+      <el-input  class = "inputform" v-model="ruleForm.checkverificationcode"  autocomplete="off"/>
+      <el-button type="warning" class="getcode">Get verification code</el-button>
+    </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)"
+      <el-button type="primary" @click="submitForm(ruleFormRef);$router.push('/moviehub/loginpage')" 
         >Reset password</el-button
       >
 
@@ -42,7 +46,7 @@ import type { FormInstance } from 'element-plus'
 import HubIcon from '@/components/HubIcon.vue';
 
 const ruleFormRef = ref<FormInstance>()
-
+  const input = ref('')
 const validatePass = (rule: any, value: any, callback: any) => {
   const reg = /^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+$/;
   if (!value) {
@@ -78,17 +82,25 @@ const validatePass3 = (rule: any, value: any, callback: any) => {
     callback()
   }
 }
-
+const validatePass7 = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('Please input the verification code'))
+  } else {
+    callback()
+  }
+}
 const ruleForm = reactive({
   pass: '',
   checkPass: '',
-  confirmPass: ''
+  confirmPass: '',
+  checkverificationcode:''
 })
 
 const rules = reactive({
   pass: [{ validator: validatePass, trigger: 'blur' }],
   checkPass: [{ validator: validatePass2, trigger: 'blur' }],
-  confirmPass: [{ validator: validatePass3, trigger: 'blur' }]
+  confirmPass: [{ validator: validatePass3, trigger: 'blur' }],
+  checkverificationcode: [{ validator: validatePass3, trigger: 'blur' }]
 
 })
 
@@ -111,6 +123,10 @@ const resetForm = (formEl: FormInstance | undefined) => {
 </script>
 
 <style >
+  body {
+background-image:url('https://wallpapercave.com/dwp2x/wp11089675.jpg');
+
+}
 .languagecolour .el-form-item__label {
   color: #FF9900;
 }
@@ -118,14 +134,19 @@ const resetForm = (formEl: FormInstance | undefined) => {
   width: 50%;
 }
 .demo-ruleForm {
- text-align:left; border-radius: 8px;margin: 0 auto;width:50%;
-  position:fixed;top:220px;left:325px;font-weight: bold;
+ text-align:left; 
+ border-radius: 8px;
+ margin:0 auto;
+ width:50%;
+  position:fixed;
+  top:150px;
+  left:325px;
+  font-weight: bold;
 }
 
-body {
-background-image:url('https://scontent.fmel5-1.fna.fbcdn.net/v/t39.30808-6/306272199_1256917685131734_3537777224371844189_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=cwpl-5Xjt7UAX8eKLBr&_nc_ht=scontent.fmel5-1.fna&oh=00_AT9gjDR6Uo4lsrcF4lTvRGKOiaiSau53dI3mdJdh_gRWGw&oe=6329FC9B');
 
+.getcode{
+  margin-left:20px;
 }
-
 
   </style>

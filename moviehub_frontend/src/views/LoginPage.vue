@@ -9,7 +9,8 @@
     class="demo-ruleForm"
     :cell-style="{ 'text-align': 'center'}"
   >
-
+  <el-card class="box-card">
+      <h2 class="h2">Login Form</h2>
     <el-form-item class = "languagecolour" label="Email" prop="pass">
       <el-input class = "inputform" v-model="ruleForm.pass" type="email" autocomplete="off"/>
     </el-form-item>
@@ -20,17 +21,22 @@
         type="password"
         autocomplete="off"
       />
-      <a href="http://localhost:8080/#/moviehub/forgetpassword" class="forgetpass">Forget password? Click here</a>
+      
     </el-form-item>
-    <a href="http://localhost:8080/#/moviehub/registerpage" class="registerlink">If you dont have an account, register here</a>
+    <a @click="$router.push('/moviehub/forgetpassword')" class="forgetpass">Forget password? Click here</a>
     <el-form-item class="loginresetbutton">
-      <el-button type="primary" @click="submitForm(ruleFormRef)"
+      <el-button type="primary" @click="submitForm(ruleFormRef);$router.push('/moviehub/mainpageuser/1234')" 
         >Log in</el-button
       >
-      <el-button @click="resetForm(ruleFormRef)" >Reset</el-button>
+      <el-button type="primary" @click="submitForm(ruleFormRef);$router.push('/moviehub/registerpage')" class="registerlink"
+        >No account?register here</el-button
+      >
+ 
+      <el-form-item><el-button @click="resetForm(ruleFormRef)" class="resetbutton">Reset</el-button></el-form-item>
     </el-form-item>
+  </el-card>
   </el-form>
-
+  
   <HubIcon/>
 </template>
 
@@ -90,7 +96,14 @@ const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return
   formEl.resetFields()
 }
+
+
 </script>
+ 
+<script>
+
+</script>
+
 
 <style >
 .languagecolour .el-form-item__label {
@@ -98,17 +111,26 @@ const resetForm = (formEl: FormInstance | undefined) => {
   
 }
 .loginresetbutton{
-  margin:10px;
+  margin-left:-70px;
+  margin-top:20px;
+  text-decoration:none;
 }
 .registerlink{
-  color: rgba(75, 75, 243, 0.767);
+
+  margin-left:10px;
   text-decoration:none;
-  margin-left: 150px ;
+  
+}
+.resetbutton{
+
+margin-left:10px;
+
 }
 .forgetpass{
   color:#FF9900;
   text-decoration:none;
-  margin-left:10px
+  margin-left:200px;
+  margin-top:20px
 }
 .inputform {
   width: 50%;
@@ -121,6 +143,16 @@ const resetForm = (formEl: FormInstance | undefined) => {
 body {
 background-image:url('https://wallpapercave.com/dwp2x/wp11089675.jpg');
 }
+.box-card {
+  margin-top:-100px;
 
-
+  color:orange
+}
+.login-from {
+  margin: auto auto;
+  
+}
+.h2{
+  margin-left:230px;
+}
   </style>
