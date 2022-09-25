@@ -98,13 +98,13 @@ const submitForm = (formEl: FormInstance | undefined) => {
 
 <style>
 
-  body {
-background-color: #222231;
+body {
+  background-color: #222231;
 }
-  .header{
+.header{
   background-color: black;
 
-  }
+}
 
 .LRbutton{
   width:10%;

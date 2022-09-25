@@ -14,3 +14,4 @@ app.use(axios)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
+app.use(ElementPlusIconsVue)

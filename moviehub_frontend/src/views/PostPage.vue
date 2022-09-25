@@ -16,7 +16,7 @@
           <el-input class="movietitleinput" style = "width: 300px" v-model="input" placeholder="Please input movie title" />
         </el-form-item >
         <el-form-item label = "Movie genre: " class="genre">
-        <el-select v-model="value" class="select" placeholder="filter">
+        <el-select v-model="value" class="select" placeholder="horror">
     <el-option
       v-for="item in options"
       :key="item.value"

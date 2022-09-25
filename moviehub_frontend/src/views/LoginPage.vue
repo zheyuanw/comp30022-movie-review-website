@@ -41,7 +41,8 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+
+import { defineComponent, reactive, ref } from 'vue'
 import type { FormInstance } from 'element-plus'
 import HubIcon from '@/components/HubIcon.vue';
 
@@ -99,12 +100,9 @@ const resetForm = (formEl: FormInstance | undefined) => {
 
 
 </script>
- 
 <script>
 
 </script>
-
-
 <style >
 .languagecolour .el-form-item__label {
   color: #FF9900;

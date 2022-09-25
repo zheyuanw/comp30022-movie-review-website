@@ -5,8 +5,23 @@
     content=""
     
   >
-    <el-button @click="$router.push('/moviehub/loginpage')" class="logoutbutton">logout</el-button>
-    <el-button @click="$router.push('/moviehub/changepassword/1234')">change password</el-button>
+  <el-button @click="$router.push('/moviehub/changepassword/1234')" class="cpass">
+    <el-icon class="lock"><Lock /></el-icon>change password</el-button>
+    <el-button @click="$router.push('/moviehub/dashboard/setting/1234')" class="setting">
+      <el-icon class="setting"><Setting /></el-icon>SettingPage</el-button>
+    <el-popconfirm
+    confirm-button-text="Yes"
+    cancel-button-text="No"
+    :icon="InfoFilled"
+    icon-color="#626AEF"
+    title="Are you sure to log out?"
+    @confirm="$router.push('/moviehub/loginpage')"
+  >
+    <template #reference>
+      <el-button class="logoutbutton"><el-icon class="Sbutton"><SwitchButton /></el-icon>logout</el-button>
+    </template>
+  </el-popconfirm>
+  
     <template #reference>
       <div class="avatar" >
         <el-avatar 
@@ -19,17 +34,36 @@
   
 </template>
 <script lang="ts" setup>
-  
+  import { InfoFilled } from '@element-plus/icons-vue'
+  import { SwitchButton } from '@element-plus/icons-vue'
+  import { Setting } from '@element-plus/icons-vue'
+  import { Lock } from '@element-plus/icons-vue'
   </script>
 <style>
   .avatar{
-  position:relative;
-  top:11.5px;
-  right:-600px
-}
-.logoutbutton{
-  margin-bottom:10px;
-  margin-left: 45px;
+  position:fixed;
+  top:10px;
+  left:1210px
 }
 
+.setting{
+      margin-top:10px
+    }
+    .cpass{
+        margin-left:11.5px
+      }
+      .lock{
+  margin-right:5px;
+}
+.setting{
+  margin-right:5px;
+  margin-bottom: 10px;
+}
+
+.plus{
+  margin-right:5px;
+}
+.Sbutton{
+  margin-right: 5px;;
+}
 </style>

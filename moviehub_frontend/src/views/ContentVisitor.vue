@@ -15,7 +15,7 @@
     <HubIcon/>
   </template>
   <script lang="ts" setup>
-    import { ref } from 'vue'
+
     import HubIcon from '@/components/HubIcon.vue';
   
     </script>

@@ -66,7 +66,7 @@
 
   <script lang="ts" setup>
     import { ElMessage, ElMessageBox } from 'element-plus'
-    import { reactive, ref } from 'vue'
+    import { ref } from 'vue'
 import type { UploadProps, UploadUserFile } from 'element-plus'
 import HubIcon from '@/components/HubIcon.vue';
 import AvatarIcon from '../components/AvatarIcon.vue';
@@ -122,18 +122,18 @@ const beforeRemove: UploadProps['beforeRemove'] = (uploadFile, uploadFiles) => {
     </script>
 
 <style>
-  .languagecolour {
+.languagecolour {
   color: #FF9900;
   margin-left:330px;
   margin-top:40px;
 }
-  body {
+body {
 background-color: #222231;
 }
-  .header{
+.header{
   background-color: black;
 
-  }
+}
 
 .LRbutton{
   width:10%;
