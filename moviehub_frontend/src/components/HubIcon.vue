@@ -1,7 +1,7 @@
 <template>
- <div class="hub">
-<span contenteditable="true">Movie</span>
-<span contenteditable="true">Hub</span>
+ <div class="hub" @click="$router.push('/')">
+<span contenteditable="false">Movie</span>
+<span contenteditable="false">Hub</span>
 </div>
 </template>
 

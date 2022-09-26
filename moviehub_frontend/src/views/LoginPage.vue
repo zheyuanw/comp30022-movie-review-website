@@ -9,35 +9,40 @@
     class="demo-ruleForm"
     :cell-style="{ 'text-align': 'center'}"
   >
-
-
+  <el-card class="box-card">
+      <h2 class="h2">Login Form</h2>
     <el-form-item class = "languagecolour" label="Email" prop="pass">
-      <el-input  class = "inputform" v-model="ruleForm.pass" type="email" autocomplete="off"/>
+      <el-input class = "inputform" v-model="ruleForm.pass" type="email" autocomplete="off"/>
     </el-form-item>
-    <el-form-item class = "languagecolour" label="New Password" prop="checkPass">
+    <el-form-item class = "languagecolour" label="Password" prop="checkPass">
       <el-input
         class = "inputform"
         v-model="ruleForm.checkPass"
         type="password"
         autocomplete="off"
       />
+      
     </el-form-item>
-    <el-form-item class = "languagecolour" label="confirm password" prop="confirmPass">
-      <el-input  class = "inputform" v-model="ruleForm.confirmPass" type="Password" autocomplete="off"/>
-    </el-form-item>
-   
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)"
-        >Reset password</el-button
+    <a @click="$router.push('/moviehub/forgetpassword')" class="forgetpass">Forget password? Click here</a>
+    <el-form-item class="loginresetbutton">
+      <el-button type="primary" @click="submitForm(ruleFormRef);$router.push('/moviehub/mainpageuser/1234')" 
+        >Log in</el-button
       >
-
+      <el-button type="primary" @click="submitForm(ruleFormRef);$router.push('/moviehub/registerpage')" class="registerlink"
+        >No account?register here</el-button
+      >
+ 
+      <el-form-item><el-button @click="resetForm(ruleFormRef)" class="resetbutton">Reset</el-button></el-form-item>
     </el-form-item>
+  </el-card>
   </el-form>
-<HubIcon/>
+  
+  <HubIcon/>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+
+import { defineComponent, reactive, ref } from 'vue'
 import type { FormInstance } from 'element-plus'
 import HubIcon from '@/components/HubIcon.vue';
 
@@ -62,33 +67,17 @@ const validatePass2 = (rule: any, value: any, callback: any) => {
       console.log("密码格式错误")
       callback(new Error('Please input correct form of password'))
     }
-    if (ruleForm.confirmPass !== '') {
-      if (!ruleFormRef.value) return
-      ruleFormRef.value.validateField('confirmPass', () => null)
-    }
-    callback()
-  }
-}
-const validatePass3 = (rule: any, value: any, callback: any) => {
-  if (value === '') {
-    callback(new Error('Please input the password again'))
-  } else if (value !== ruleForm.checkPass) {
-    callback(new Error("Two inputs don't match!"))
-  } else {
-    callback()
   }
 }
 
 const ruleForm = reactive({
   pass: '',
   checkPass: '',
-  confirmPass: ''
 })
 
 const rules = reactive({
   pass: [{ validator: validatePass, trigger: 'blur' }],
   checkPass: [{ validator: validatePass2, trigger: 'blur' }],
-  confirmPass: [{ validator: validatePass3, trigger: 'blur' }]
 
 })
 
@@ -108,11 +97,38 @@ const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return
   formEl.resetFields()
 }
-</script>
 
+
+</script>
+<script>
+
+</script>
 <style >
 .languagecolour .el-form-item__label {
   color: #FF9900;
+  
+}
+.loginresetbutton{
+  margin-left:-70px;
+  margin-top:20px;
+  text-decoration:none;
+}
+.registerlink{
+
+  margin-left:10px;
+  text-decoration:none;
+  
+}
+.resetbutton{
+
+margin-left:10px;
+
+}
+.forgetpass{
+  color:#FF9900;
+  text-decoration:none;
+  margin-left:200px;
+  margin-top:20px
 }
 .inputform {
   width: 50%;
@@ -123,9 +139,18 @@ const resetForm = (formEl: FormInstance | undefined) => {
 }
 
 body {
-background-image:url('https://scontent.fmel5-1.fna.fbcdn.net/v/t39.30808-6/306272199_1256917685131734_3537777224371844189_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=cwpl-5Xjt7UAX8eKLBr&_nc_ht=scontent.fmel5-1.fna&oh=00_AT9gjDR6Uo4lsrcF4lTvRGKOiaiSau53dI3mdJdh_gRWGw&oe=6329FC9B');
-
+background-image:url('https://wallpapercave.com/dwp2x/wp11089675.jpg');
 }
+.box-card {
+  margin-top:-100px;
 
-
+  color:orange
+}
+.login-from {
+  margin: auto auto;
+  
+}
+.h2{
+  margin-left:230px;
+}
   </style>

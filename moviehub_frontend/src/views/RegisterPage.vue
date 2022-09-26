@@ -10,11 +10,11 @@
     :cell-style="{ 'text-align': 'center'}"
   >
 
-  <el-form-item class = "languagecolour" label="Username">
+  <el-form-item class = "languagecolour" label="Username" prop="checkusername">
     <el-input class = "inputform" v-model="ruleForm.checkusername" maxlength=16 placeholder="Jack" />
   </el-form-item>
-  <el-form-item class = "languagecolour" label="Gender">
-    <el-select v-model="value" class="m-2" placeholder="Select" size="large">
+  <el-form-item class = "languagecolour" label="Gender" prop="checkgender">
+    <el-select v-model="ruleForm.checkgender" class="m-2" placeholder="Select" size="large">
     <el-option
       v-for="item in options"
       :key="item.value"
@@ -23,13 +23,15 @@
     />
   </el-select>
   </el-form-item>
-  <el-form-item class = "languagecolour" label="Age">
-    <el-input-number v-model="age" :min="1" :max="120" @change="handleChange" />
+  <el-form-item class = "languagecolour" label="Age" prop="checkage">
+    <el-input-number v-model="ruleForm.checkage" :min="1" :max="120" @change="handleChange" />
   </el-form-item>
 
     <el-form-item class = "languagecolour" label="Email" prop="pass">
       <el-input  class = "inputform" v-model="ruleForm.pass" type="email" autocomplete="off"/>
+      
     </el-form-item>
+    
     <el-form-item class = "languagecolour" label="Password" prop="checkPass">
       <el-input
         class = "inputform"
@@ -41,12 +43,19 @@
     <el-form-item class = "languagecolour" label="confirm password" prop="confirmPass">
       <el-input  class = "inputform" v-model="ruleForm.confirmPass" type="Password" autocomplete="off"/>
     </el-form-item>
+    <el-form-item class = "languagecolour" label="verification code" prop="checkverficationcode">
+      <el-input  class = "verification_form" v-model="ruleForm.checkverficationcode" autocomplete="off"/>
+      <el-button type="warning" class="getcode">Get verification code</el-button>
+    </el-form-item>
    
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)"
+    <el-form-item class="threebutton">
+      <el-button type="primary" @click="submitForm(ruleFormRef);$router.push('/moviehub/loginpage')"
         >Sign up</el-button
       >
       <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
+      <el-button type="primary" @click="submitForm(ruleFormRef);$router.push('/moviehub/loginpage')"
+        >Already have an account?log in</el-button
+      >
     </el-form-item>
   </el-form>
 <HubIcon/>
@@ -57,9 +66,7 @@ import { reactive, ref } from 'vue'
 import type { FormInstance } from 'element-plus'
 import HubIcon from '@/components/HubIcon.vue';
 const ruleFormRef = ref<FormInstance>()
-  const input = ref('')
-  const value = ref('')
-  const age = ref(1)
+  
   const options = [
   {
     value: 'Male',
@@ -116,19 +123,46 @@ const validatePass4 = (rule: any, value: any, callback: any) => {
     callback()
   }
 }
+const validatePass5 = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('Please input the age'))
+  } else {
+    callback()
+  }
+}
+const validatePass6 = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('Please choose the gender'))
+  } else {
+    callback()
+  }
+}
+const validatePass7 = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('Please input the verification code'))
+  } else {
+    callback()
+  }
+}
 
 const ruleForm = reactive({
   pass: '',
   checkPass: '',
   confirmPass: '',
-  checkusername:''
+  checkusername:'',
+  checkage:'',
+  checkgender:'',
+  checkverficationcode:''
 })
 
 const rules = reactive({
   pass: [{ validator: validatePass, trigger: 'blur' }],
   checkPass: [{ validator: validatePass2, trigger: 'blur' }],
   confirmPass: [{ validator: validatePass3, trigger: 'blur' }],
-  checkusername: [{ validator: validatePass4, trigger: 'blur' }]
+  checkusername: [{ validator: validatePass4, trigger: 'blur' }],
+  checkage: [{ validator: validatePass5, trigger: 'blur' }],
+  checkgender: [{ validator: validatePass6, trigger: 'blur' }],
+  checkverficationcode: [{ validator: validatePass7, trigger: 'blur' }]
 })
 
 const submitForm = (formEl: FormInstance | undefined) => {
@@ -150,19 +184,33 @@ const resetForm = (formEl: FormInstance | undefined) => {
 </script>
 
 <style>
+  .threebutton{
+    margin-left:-80px;
+  }
 .languagecolour .el-form-item__label {
   color: #FF9900;
+}
+.getcode{
+  margin-left:20px;
 }
 .inputform {
   width: 50%;
 }
 .demo-ruleForm {
- text-align:left; border-radius: 8px;margin: 0 auto;width:50%;
-  position:fixed;top:140px;left:325px;font-weight: bold;
+ text-align:left; 
+ border-radius: 8px;
+ margin:0 auto;
+ width:50%;
+  position:fixed;
+  top:100px;
+  left:325px;
+  font-weight: bold;
 }
 body {
-background-image:url('https://scontent.fmel5-1.fna.fbcdn.net/v/t39.30808-6/306272199_1256917685131734_3537777224371844189_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=cwpl-5Xjt7UAX8eKLBr&_nc_ht=scontent.fmel5-1.fna&oh=00_AT9gjDR6Uo4lsrcF4lTvRGKOiaiSau53dI3mdJdh_gRWGw&oe=6329FC9B');
+background-image:url('https://wallpapercave.com/dwp2x/wp11089675.jpg');
 }
-
+.verification_form{
+  width:50%;
+}
 
   </style>

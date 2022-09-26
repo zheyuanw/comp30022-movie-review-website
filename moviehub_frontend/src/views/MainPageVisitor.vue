@@ -28,11 +28,11 @@
     />
   </el-select>
   
-    <el-button type="warning" round class="LRbutton">Login/Register</el-button>  
+    <el-button type="warning" round class="LRbutton" @click="$router.push('/moviehub/loginpage')">Login/Register</el-button>  
       </el-header>
       <el-main>
         <div class="recommend">Recommend movies</div>
-
+          
       </el-main>
       
     </el-container>
@@ -109,15 +109,16 @@ const options = [
 .search{
   width:45%;
   margin-top: 15px;
+  margin-left:150px
 }
 .select{
   margin-left:10px;
   width:10%;
 }
 .LRbutton{
-  position:fixed;
-  top:12px;
-  right:35px
+  position:relative;
+
+  right:-85px
 }
 .recommend{
   position:absolute;
