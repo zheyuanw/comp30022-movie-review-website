@@ -23,6 +23,11 @@ public class UserController {
     private final UserServiceImpl userService;
     private final RegisterServiceImpl registerService;
 
+    @GetMapping("/hello")
+    public String hello(){
+        return "hello";
+    }
+
     @PostMapping
     public String save(@RequestBody User user){
         return userService.save(user).getId();
@@ -61,8 +66,6 @@ public class UserController {
     @PostMapping(value = "/login")
     public ResponseEntity login(@RequestBody User user) {
         System.out.println(user);
-
-
 
         if (userService.loginUser(user)){
 
