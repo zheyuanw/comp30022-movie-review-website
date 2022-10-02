@@ -38,7 +38,7 @@ public class JWTauthenticateFilter extends OncePerRequestFilter {
             } catch (IllegalArgumentException e) {
                 System.out.println("Unable to get JWT Token");
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                logger.warn(e.getMessage());
             }
         } else {
             logger.warn("JWT Token not exist or does not begin with Bearer String");
@@ -50,7 +50,7 @@ public class JWTauthenticateFilter extends OncePerRequestFilter {
 
                 //load userDetail with the email
                 UserDetails userDetails = this.userService.loadUserByUsername(userEmail);
-                System.out.println(userDetails.getUsername() + "\n" + userDetails.getPassword());
+                logger.info( "token_info\n"+ "email: " + userDetails.getUsername() + "\n" + "pwd: " + userDetails.getPassword());
 
                 System.out.println(JWTtokenUtil.validateToken(jwtToken));
                 if (JWTtokenUtil.validateToken(jwtToken)){

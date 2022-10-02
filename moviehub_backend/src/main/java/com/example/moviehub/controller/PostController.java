@@ -5,6 +5,8 @@ import com.example.moviehub.collection.Post;
 import com.example.moviehub.service.Impl.PostServiceImpl;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +30,11 @@ public class PostController {
 
     @GetMapping
     public List<Post> getAllPost(){
+        System.out.println("GET /post");
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
+
+        //get useremail from request token
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return postServiceImpl.getAllPost();
     }
 

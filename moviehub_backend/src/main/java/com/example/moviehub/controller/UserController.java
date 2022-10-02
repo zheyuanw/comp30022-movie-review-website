@@ -1,6 +1,7 @@
 package com.example.moviehub.controller;
 
 
+import com.example.moviehub.collection.ForgotPasswrodForm;
 import com.example.moviehub.collection.RegisterForm;
 import com.example.moviehub.collection.User;
 import com.example.moviehub.service.Impl.RegisterServiceImpl;
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -56,7 +59,7 @@ public class UserController {
 
         if (registerService.register(registerForm)){
 
-            return ResponseEntity.ok().body(JsonUtil.toJsonString("Register succeeded"));
+            return ResponseEntity.ok().body(JsonUtil.toJsonString("Register Succeeded"));
         }else{
 
             return ResponseEntity.badRequest().body(JsonUtil.toJsonString("Register Failed"));
@@ -71,10 +74,35 @@ public class UserController {
 
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
 
-            return ResponseEntity.ok(JsonUtil.toJsonString("Login succeed", JWTtokenUtil.generateToken(user)));
+
+
+            return ResponseEntity.ok(JsonUtil.toJsonString("Login Succeed", JWTtokenUtil.generateToken(user)));
         }else{
             return ResponseEntity.badRequest().body(JsonUtil.toJsonString("Login failed"));
         }
+
+    }
+
+    @PostMapping(value = "/forgotPassword")
+    public ResponseEntity forgotPassword(@RequestBody ForgotPasswrodForm form){
+        System.out.println(form.toString());
+        if (userService.forgotPass(form)){
+            return ResponseEntity.ok(JsonUtil.toJsonString("Reset Succeed"));
+        }else {
+            return ResponseEntity.ok(JsonUtil.toJsonString("Reset Failed"));
+        }
+    }
+
+    @PostMapping(value = "/forgotPassword/email")
+    public ResponseEntity resetPassEmail(@RequestBody ForgotPasswrodForm form){
+        System.out.println(form.getEmail());
+        try{
+            userService.sendEmailVerificationCode(form.getEmail());
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(JsonUtil.toJsonString(e.getMessage()));
+        }
+
+        return ResponseEntity.ok().body(JsonUtil.toJsonString("Email Sent"));
 
     }
 
