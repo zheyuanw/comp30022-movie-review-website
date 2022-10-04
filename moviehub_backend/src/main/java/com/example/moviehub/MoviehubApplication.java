@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.config.EnableMongoAuditing;
 
 
 @EnableMongoAuditing
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
+@SpringBootApplication()
 public class MoviehubApplication {
 
 	public static void main(String[] args) {

@@ -28,6 +28,8 @@ public class User {
     private Integer age;
     private String photoId;
 
+    public User(){};
+
     public User(String id, String userName, String password, String email, Integer age, String photoId) {
         this.id = id;
         this.userName = userName;
@@ -35,5 +37,10 @@ public class User {
         this.email = email;
         this.age = age;
         this.photoId = photoId;
+    }
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 }

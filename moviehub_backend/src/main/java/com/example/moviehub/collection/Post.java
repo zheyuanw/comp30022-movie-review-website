@@ -31,6 +31,7 @@ public class Post {
 
     private String content;
 
+
     private double rating;
     @CreatedDate
     private Date createdDate;
