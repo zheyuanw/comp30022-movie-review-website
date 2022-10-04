@@ -110,7 +110,7 @@ const handleExceed: UploadProps['onExceed'] = (files, uploadFiles) => {
   )
 }
 
-const beforeRemove: UploadProps['beforeRemove'] = (uploadFile, uploadFiles) => {
+const beforeRemove: UploadProps['beforeRemove'] = (uploadFile) => {
   return ElMessageBox.confirm(
     `Cancel the transfert of ${uploadFile.name} ?`
   ).then(

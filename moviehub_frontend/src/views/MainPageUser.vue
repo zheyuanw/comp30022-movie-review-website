@@ -54,7 +54,7 @@
       import { Plus } from '@element-plus/icons-vue'
       import HubIcon from '@/components/HubIcon.vue';
       import MovieCard from '@/components/MovieCard.vue';
-import AvatarIcon from '@/components/AvatarIcon.vue';
+      import AvatarIcon from '@/components/AvatarIcon.vue';
       const input1 = ref('')
       const value = ref('')
       const value2=ref('')

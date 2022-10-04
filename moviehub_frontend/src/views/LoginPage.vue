@@ -1,156 +1,140 @@
 <template>
-  
-  <el-form
-    ref="ruleFormRef"
-    :model="ruleForm"
-    status-icon
-    :rules="rules"
-    label-width="210px"
-    class="demo-ruleForm"
-    :cell-style="{ 'text-align': 'center'}"
-  >
-  <el-card class="box-card">
-      <h2 class="h2">Login Form</h2>
-    <el-form-item class = "languagecolour" label="Email" prop="pass">
-      <el-input class = "inputform" v-model="ruleForm.pass" type="email" autocomplete="off"/>
-    </el-form-item>
-    <el-form-item class = "languagecolour" label="Password" prop="checkPass">
-      <el-input
-        class = "inputform"
-        v-model="ruleForm.checkPass"
-        type="password"
-        autocomplete="off"
-      />
-      
-    </el-form-item>
-    <a @click="$router.push('/moviehub/forgetpassword')" class="forgetpass">Forget password? Click here</a>
-    <el-form-item class="loginresetbutton">
-      <el-button type="primary" @click="submitForm(ruleFormRef);$router.push('/moviehub/mainpageuser/1234')" 
-        >Log in</el-button
+  <div id= 'building'>
+      <HubIcon></HubIcon>
+  <div >
+    <el-card class="box-card">
+      <h2 class = "color">Login</h2>
+      <el-form
+        :model="ruleForm"
+        status-icon
+        :rules="rules"
+        ref="ruleForm"
+        label-position="left"
+        label-width="100px"
+        class="login-from"
+        hide-required-aterisk="false"
       >
-      <el-button type="primary" @click="submitForm(ruleFormRef);$router.push('/moviehub/registerpage')" class="registerlink"
-        >No account?register here</el-button
-      >
- 
-      <el-form-item><el-button @click="resetForm(ruleFormRef)" class="resetbutton">Reset</el-button></el-form-item>
-    </el-form-item>
-  </el-card>
-  </el-form>
-  
-  <HubIcon/>
+        <el-form-item class = "color1" label="Email" prop="uname" >
+          <el-input v-model="ruleForm.uname"></el-input>
+        </el-form-item>
+        <el-form-item class = "color1" label="Password" prop="password">
+          <el-input
+            type="password"
+            v-model="ruleForm.password"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+      </el-form>
+      <div>
+      <el-button @click="$router.push('/moviehub/forgetpassword')" class="forgetpass">Forgot password?</el-button>
+      </div>
+      <div class="btnGroup">
+          
+        <el-button type="primary" @click="submitForm('ruleForm')"
+        v-loading="loading"
+          >Login
+          </el-button>
+        <el-button @click="resetForm('ruleForm')">Reset</el-button>
+        <router-link to="/moviehub/RegisterPage">
+          <el-button style="margin-left:10px">Register</el-button>
+        </router-link>
+      </div>
+    </el-card>
+  </div>
+</div>
 </template>
 
-<script lang="ts" setup>
-
-import { defineComponent, reactive, ref } from 'vue'
-import type { FormInstance } from 'element-plus'
-import HubIcon from '@/components/HubIcon.vue';
-
-const ruleFormRef = ref<FormInstance>()
-
-const validatePass = (rule: any, value: any, callback: any) => {
-  const reg = /^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+$/;
-  if (!value) {
-    return callback(new Error('cannot input empty email!'))
-  } else if (!reg.test(value)) {
-    return callback(new Error('please input valid email!'))
-  } else {
-    callback()
-  }
-
-}
-const validatePass2 = (rule: any, value: any, callback: any) => {
-  if (value === '') {
-    callback(new Error('Please input the password'))
-  } else {
-    if (value!='' && ((ruleForm.checkPass.length < 8 || ruleForm.checkPass.length > 16))){
-      console.log("密码格式错误")
-      callback(new Error('Please input correct form of password'))
-    }
-  }
-}
-
-const ruleForm = reactive({
-  pass: '',
-  checkPass: '',
-})
-
-const rules = reactive({
-  pass: [{ validator: validatePass, trigger: 'blur' }],
-  checkPass: [{ validator: validatePass2, trigger: 'blur' }],
-
-})
-
-const submitForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  formEl.validate((valid) => {
-    if (valid) {
-      console.log('submit!')
-    } else {
-      console.log('error submit!')
-      return false
-    }
-  })
-}
-
-const resetForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  formEl.resetFields()
-}
-
-
-</script>
 <script>
-
+import HubIcon from '@/components/HubIcon.vue';
+import request from "@/utils/RequestFile.js";
+import request2 from "@/utils/Request2.js";
+export default {
+  data() {
+      return {
+          components: {
+              HubIcon
+          },
+          ruleForm: {
+              uname: "",
+              password: "",
+          },
+          rules: {
+              uname: [
+                    { required: true, message: "email cannot be blank", trigger: "blur" },
+                    { type: "email", message: "input correct email", trigger: "change" },
+              ],
+              password: [
+                    { required: true, message: "password cannot be blank", trigger: "blur" },
+              ],
+          },
+          loading: false,
+      };
+  },
+  methods: {
+      submitForm(formName) {
+          console.log("submit");
+      this.$refs[formName].validate((valid) => {
+      // click login, login animation
+      this.loading = true;
+      // if (valid) {
+      //   console.log("movie")
+      //   request2.get("/k_gh3vr6fp").then(res => {
+      //     console.log("success");
+      //   })
+      // }
+      if (valid) {
+          console.log('submit!')
+          request.post("/user/login", {email: this.ruleForm.uname, password: this.ruleForm.password}).then(res => {
+          if(res.status === 200){
+            console.log("success");
+        
+            this.$router.push('/moviehub/mainpageuser/'+JSON.stringify(res.data));
+          }
+        
+    })
+      } else {  
+        console.log("error submit!!");
+        this.loading = false;
+        return false;
+      }
+      });
+  },
+      resetForm(formName) {
+          this.$refs[formName].resetFields();
+      },
+  },
+  components: { HubIcon }
+};
 </script>
+
 <style >
-.languagecolour .el-form-item__label {
-  color: #FF9900;
-  
+.color {
+  color: orange;
 }
-.loginresetbutton{
-  margin-left:-70px;
-  margin-top:20px;
-  text-decoration:none;
+.forgetpass {
+  color: orange;
 }
-.registerlink{
-
-  margin-left:10px;
-  text-decoration:none;
-  
-}
-.resetbutton{
-
-margin-left:10px;
-
-}
-.forgetpass{
-  color:#FF9900;
-  text-decoration:none;
-  margin-left:200px;
-  margin-top:20px
-}
-.inputform {
-  width: 50%;
-}
-.demo-ruleForm {
- text-align:left; border-radius: 8px;margin: 0 auto;width:50%;
-  position:fixed;top:220px;left:325px;font-weight: bold;
-}
-
-body {
-background-image:url('https://wallpapercave.com/dwp2x/wp11089675.jpg');
+.color1 .el-form-item__label{
+  color : orange;
 }
 .box-card {
-  margin-top:-100px;
-
-  color:orange
+  margin: auto auto;
+  margin-top: 150px;
+  width: 400px;
 }
 .login-from {
   margin: auto auto;
-  
 }
-.h2{
-  margin-left:230px;
+#building{
+background:url('https://wallpapercave.com/dwp2x/wp11089675.jpg');
+width:100%;
+height:100%;
+position:fixed;
+background-size:100% 100%;
 }
-  </style>
+
+.btnGroup{
+  margin-top: 20px;
+}
+
+</style>

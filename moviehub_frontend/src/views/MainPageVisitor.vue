@@ -47,9 +47,7 @@
   const input1 = ref('')
   const value = ref('')
   const value2=ref('')
-const handleSelect = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
+
 const options = [
   {
     value: 'Drama',

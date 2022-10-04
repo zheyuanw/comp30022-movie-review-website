@@ -4,12 +4,12 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       '/api': {
-        target: ' http://localhost:8080/',
-        ws: true,
+        target: 'https://moivehub-itproject-team004.herokuapp.com',
+
         changeOrigin: true,
-        pathRewrite: {
-          '^api': ''
-        }
+        // pathRewrite: {
+        //   '^api': ''
+        // }
       }
     }
   }

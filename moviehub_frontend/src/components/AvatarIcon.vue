@@ -45,14 +45,17 @@
   top:10px;
   left:1210px
 }
+.avatar:hover{
+  cursor:pointer;
 
+}
 .setting{
-      margin-top:10px
-    }
-    .cpass{
-        margin-left:11.5px
-      }
-      .lock{
+    margin-top:10px
+}
+.cpass{
+    margin-left:11.5px
+}
+.lock{
   margin-right:5px;
 }
 .setting{
