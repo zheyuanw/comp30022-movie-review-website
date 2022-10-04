@@ -151,6 +151,7 @@ export default {
         label: 'Other',
       },
      ],
+     movies: [],
     }
   },
   methods:{
@@ -164,47 +165,7 @@ export default {
   components: { HubIcon }
 }
 
-const movieopt=[{
 
-}]
-const options = [
-      {
-        value: 'Drama',
-        label: 'Drama',
-      },
-      {
-        value: 'Comedy',
-        label: 'Comedy',
-      },
-      {
-        value: 'Horror',
-        label: 'Horror',
-      },
-      {
-        value: 'Thriller',
-        label: 'Thriller',
-      },
-      {
-        value: 'Action',
-        label: 'Action',
-      },
-      {
-        value: 'Sci-fi',
-        label: 'Sci-fi',
-      },
-      {
-        value: 'Crime',
-        label: 'Crime',
-      },
-      {
-        value: 'Adventure',
-        label: 'Adventure',
-      },
-      {
-        value: 'Other',
-        label: 'Other',
-      },
-     ]
 
 
 
