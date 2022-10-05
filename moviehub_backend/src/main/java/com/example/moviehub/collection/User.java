@@ -57,11 +57,6 @@ public class User {
         this.gender = gender;
     }
 
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
-
 
     public User(String username, String email, String password, Integer age, Gender gender) {
         this.username = username;
@@ -71,10 +66,17 @@ public class User {
         this.gender = gender;
     }
 
-    public User(String username, String email, String password, Integer age) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.age = age;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", age=" + age +
+                ", photoId='" + photoId + '\'' +
+                ", gender=" + gender +
+                '}';
     }
 }

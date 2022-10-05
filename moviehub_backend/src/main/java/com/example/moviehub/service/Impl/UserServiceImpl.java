@@ -49,12 +49,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }else{
             System.out.println("Inser user:" + registerForm.getEmail());
 
-            
+            User.Gender gender;
+
+            if (registerForm.getGender().equalsIgnoreCase("male")){
+                gender = User.Gender.MALE;
+            }else if (registerForm.getGender().equalsIgnoreCase("female")){
+                gender = User.Gender.FEMALE;
+            }else {
+                return Boolean.FALSE;
+            }
 
             userRepository.insert(new User(registerForm.getUsername(),
                     registerForm.getEmail(),
                     registerForm.getPassword(),
-                    registerForm.getAge()));
+                    registerForm.getAge(),
+                    gender));
             return Boolean.TRUE;
         }
     }

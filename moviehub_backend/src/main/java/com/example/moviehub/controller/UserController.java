@@ -41,7 +41,7 @@ public class UserController {
         return userService.save(user).getId();
     }
 
-    @PostMapping(value = "/email")
+    @PostMapping(value = "/register/email")
     public ResponseEntity<String> verifyEmail(@RequestBody RegisterForm registerForm) {
         System.out.println(registerForm.getEmail());
         try{
@@ -49,7 +49,6 @@ public class UserController {
         } catch (Exception e){
             return ResponseEntity.badRequest().body(JsonUtil.toJsonString(e.getMessage()));
         }
-
         return ResponseEntity.ok().body(JsonUtil.toJsonString("Email Sent"));
     }
 

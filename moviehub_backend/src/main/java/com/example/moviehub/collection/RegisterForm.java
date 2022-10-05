@@ -9,17 +9,15 @@ public class RegisterForm {
     private Integer age;
     private String gender;
     private String username;
-    private String dob;
 
 
-    public RegisterForm(String email, String password, String verificationCode, Integer age, String gender, String username, String dob) {
+    public RegisterForm(String email, String password, String verificationCode, Integer age, String gender, String username) {
         this.email = email;
         this.password = password;
         this.verificationCode = verificationCode;
         this.age = age;
         this.gender = gender;
         this.username = username;
-        this.dob = dob;
     }
 
     public RegisterForm() {
@@ -53,14 +51,6 @@ public class RegisterForm {
         this.username = username;
     }
 
-    public String getDob() {
-        return dob;
-    }
-
-    public void setDob(String dob) {
-        this.dob = dob;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -83,5 +73,17 @@ public class RegisterForm {
 
     public void setVerificationCode(String verificationCode) {
         this.verificationCode = verificationCode;
+    }
+
+    @Override
+    public String toString() {
+        return "RegisterForm{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", verificationCode='" + verificationCode + '\'' +
+                ", age=" + age +
+                ", gender='" + gender + '\'' +
+                ", username='" + username + '\'' +
+                '}';
     }
 }

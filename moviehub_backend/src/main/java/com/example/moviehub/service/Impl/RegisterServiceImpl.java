@@ -40,22 +40,12 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Override
     public boolean register(RegisterForm registerForm) {
-        String email = registerForm.getEmail();
-        System.out.println(email);
-        String redis_code;
 
-
-        //if there is a corresponding code in redis
-        if (redisService.existKey(email)){
-            redis_code = redisService.getString(email);
-
-            //compared the code from client and server
-            if (registerForm.getVerificationCode().equals(redis_code)){
-                userService.registerUser(registerForm);
-                return true;
-            }
+        if (redisService.verifyCode(registerForm.getEmail(), registerForm.getVerificationCode())){
+            userService.registerUser(registerForm);
+            return true;
         }else{
-            System.out.println("Email not found");
+            System.out.println("Verification failed");
         }
         return false;
     }
