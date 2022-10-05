@@ -30,37 +30,26 @@ public class JWTauthenticateFilter extends OncePerRequestFilter {
 
         final String authorizationHeader = request.getHeader("Authorization");
         System.out.println(authorizationHeader);
-        JWTSubject subject = null;
-        String jwtToken = null;
-        String userEmail = null;
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
-            jwtToken = authorizationHeader.substring(7);
+            String jwtToken = authorizationHeader.substring(7);
             System.out.println(jwtToken);
             try{
-                subject = JWTtokenUtil.decode(jwtToken);
-                userEmail = subject.getEmail();
-            } catch (IllegalArgumentException e) {
-                System.out.println("Unable to get JWT Token");
-            } catch (Exception e) {
-                logger.warn(e.getMessage());
-            }
-        } else {
-            logger.warn("JWT Token not exist or does not begin with Bearer String");
-        }
+                JWTSubject subject = JWTtokenUtil.decode(jwtToken);
+                String userEmail = subject.getEmail();
 
-        if (userEmail != null){
-            System.out.println(userEmail);
+                if (subject.isRefresh()){
+                    if (!request.getServletPath().equals("/user/refresh")){
+                        System.out.println("This is not an access token");
+                        response.sendError(401, "This is not an access token");
+                        return;
+                    }
+                }
 
-            if (subject.isRefresh()){
-                System.out.println("This is refresh token");
-                filterChain.doFilter(request, response);
-            }
+                if (SecurityContextHolder.getContext().getAuthentication() == null){
 
-            if (SecurityContextHolder.getContext().getAuthentication() == null){
-
-                //load userDetail with the email
-                UserDetails userDetails = this.userService.loadUserByUsername(userEmail);
-                logger.info( "token_info\n"+ "email: " + userDetails.getUsername() + "\n" + "pwd: " + userDetails.getPassword());
+                    //load userDetail with the email
+                    UserDetails userDetails = this.userService.loadUserByUsername(userEmail);
+                    logger.info( "token_info\n"+ "email: " + userDetails.getUsername() + "\n" + "pwd: " + userDetails.getPassword());
 
 //                System.out.println(JWTtokenUtil.validateToken(jwtToken));
 //                if (JWTtokenUtil.validateToken(jwtToken)){
@@ -70,19 +59,22 @@ public class JWTauthenticateFilter extends OncePerRequestFilter {
 //                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 //                }
 
-                try{
                     JWTtokenUtil.validateToken(jwtToken);
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                             new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                }
 
-                }
-                catch (Exception e){
-                    System.out.println("exception"+ e.getMessage());
-                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Unable to get JWT Token");
+            } catch (Exception e) {
+                logger.warn(e.getMessage());
             }
+        } else {
+            logger.warn("JWT Token not exist or does not begin with Bearer String");
         }
+
         filterChain.doFilter(request, response);
 
     }
