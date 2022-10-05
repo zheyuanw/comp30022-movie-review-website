@@ -4,6 +4,7 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.example.moviehub.collection.JWTSubject;
 import com.example.moviehub.service.Impl.UserServiceImpl;
 import com.example.moviehub.util.JWTtokenUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +18,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class JWTauthenticateFilter extends OncePerRequestFilter {
@@ -70,9 +73,13 @@ public class JWTauthenticateFilter extends OncePerRequestFilter {
                     filterChain.doFilter(request, response);
                 }
 
-            }catch (TokenExpiredException e){
+            }catch (Exception e){
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 response.setHeader("error", e.getMessage());
+                Map<String, String> error = new HashMap<>();
+                error.put("error_message", e.getMessage());
+                response.setContentType("application/json");
+                new ObjectMapper().writeValue(response.getOutputStream(),error);
             }
 //            catch (IllegalArgumentException e) {
 //                System.out.println("Unable to get JWT Token");
@@ -81,7 +88,6 @@ public class JWTauthenticateFilter extends OncePerRequestFilter {
 //            }
         } else {
             logger.warn("JWT Token not exist or does not begin with Bearer String");
-//            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             filterChain.doFilter(request, response);
         }
 
