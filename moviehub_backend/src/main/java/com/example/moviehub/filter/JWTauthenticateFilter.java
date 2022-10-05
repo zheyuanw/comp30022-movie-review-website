@@ -28,6 +28,14 @@ public class JWTauthenticateFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
 
+        System.out.println(request.getServletPath());
+//        if (request.getServletPath().contains("/auth")){
+//            System.out.println("pass");
+//            filterChain.doFilter(request, response);
+//            return;
+//        }
+
+
         final String authorizationHeader = request.getHeader("Authorization");
         System.out.println(authorizationHeader);
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
@@ -73,7 +81,8 @@ public class JWTauthenticateFilter extends OncePerRequestFilter {
 //            }
         } else {
             logger.warn("JWT Token not exist or does not begin with Bearer String");
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+//            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            filterChain.doFilter(request, response);
         }
 
 

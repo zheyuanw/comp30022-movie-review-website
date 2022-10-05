@@ -46,14 +46,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/user/hello").permitAll()
-                .antMatchers("/user/email").permitAll()
-                .antMatchers("/user/register").permitAll()
-                .antMatchers("/user/login").permitAll()
-                .antMatchers("/user/forgotPassword").permitAll()
-                .antMatchers("/user/forgotPassword/**").permitAll()
-                .and()
-                .authorizeRequests()
+                .antMatchers("/user/register",
+                        "/user/register/**",
+                        "/user/forgotPassword/",
+                        "/user/forgotPassword/**",
+                        "/user/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()
