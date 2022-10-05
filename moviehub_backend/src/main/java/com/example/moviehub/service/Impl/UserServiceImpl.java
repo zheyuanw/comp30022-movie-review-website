@@ -49,7 +49,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }else{
             System.out.println("Inser user:" + registerForm.getEmail());
 
-            userRepository.insert(new User(registerForm.getEmail(), registerForm.getPassword()));
+            
+
+            userRepository.insert(new User(registerForm.getUsername(),
+                    registerForm.getEmail(),
+                    registerForm.getPassword(),
+                    registerForm.getAge()));
             return Boolean.TRUE;
         }
     }

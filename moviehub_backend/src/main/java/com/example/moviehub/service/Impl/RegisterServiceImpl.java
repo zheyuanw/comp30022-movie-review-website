@@ -1,6 +1,7 @@
 package com.example.moviehub.service.Impl;
 
 import com.example.moviehub.collection.RegisterForm;
+import com.example.moviehub.collection.User;
 import com.example.moviehub.service.RegisterService;
 import com.example.moviehub.util.VerificationCodeUtil;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +43,7 @@ public class RegisterServiceImpl implements RegisterService {
         String email = registerForm.getEmail();
         System.out.println(email);
         String redis_code;
+
 
         //if there is a corresponding code in redis
         if (redisService.existKey(email)){

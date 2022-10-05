@@ -1,5 +1,6 @@
 package com.example.moviehub.filter;
 
+import com.example.moviehub.collection.JWTSubject;
 import com.example.moviehub.service.Impl.UserServiceImpl;
 import com.example.moviehub.util.JWTtokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +27,18 @@ public class JWTauthenticateFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
 
+
         final String authorizationHeader = request.getHeader("Authorization");
         System.out.println(authorizationHeader);
+        JWTSubject subject = null;
         String jwtToken = null;
         String userEmail = null;
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
             jwtToken = authorizationHeader.substring(7);
             System.out.println(jwtToken);
             try{
-                userEmail = JWTtokenUtil.getUserEmail(jwtToken);
+                subject = JWTtokenUtil.decode(jwtToken);
+                userEmail = subject.getEmail();
             } catch (IllegalArgumentException e) {
                 System.out.println("Unable to get JWT Token");
             } catch (Exception e) {
@@ -46,18 +50,36 @@ public class JWTauthenticateFilter extends OncePerRequestFilter {
 
         if (userEmail != null){
             System.out.println(userEmail);
+
+            if (subject.isRefresh()){
+                System.out.println("This is refresh token");
+                filterChain.doFilter(request, response);
+            }
+
             if (SecurityContextHolder.getContext().getAuthentication() == null){
 
                 //load userDetail with the email
                 UserDetails userDetails = this.userService.loadUserByUsername(userEmail);
                 logger.info( "token_info\n"+ "email: " + userDetails.getUsername() + "\n" + "pwd: " + userDetails.getPassword());
 
-                System.out.println(JWTtokenUtil.validateToken(jwtToken));
-                if (JWTtokenUtil.validateToken(jwtToken)){
+//                System.out.println(JWTtokenUtil.validateToken(jwtToken));
+//                if (JWTtokenUtil.validateToken(jwtToken)){
+//                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+//                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+//                    usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+//                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+//                }
+
+                try{
+                    JWTtokenUtil.validateToken(jwtToken);
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                             new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+
+                }
+                catch (Exception e){
+                    System.out.println("exception"+ e.getMessage());
                 }
             }
         }

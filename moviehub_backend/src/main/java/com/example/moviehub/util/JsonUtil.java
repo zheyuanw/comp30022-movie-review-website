@@ -1,13 +1,14 @@
 package com.example.moviehub.util;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.example.moviehub.collection.JWTSubject;
+import com.google.gson.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JsonUtil {
 
+public class JsonUtil {
 
 
     public static String toJsonString(String message){
@@ -24,4 +25,9 @@ public class JsonUtil {
         return gson.toJson(map);
     }
 
+    public static JWTSubject parseJson(String jsonString){
+        Gson gson = new Gson();
+        JWTSubject subject = gson.fromJson(jsonString, JWTSubject.class);
+        return subject;
+    }
 }

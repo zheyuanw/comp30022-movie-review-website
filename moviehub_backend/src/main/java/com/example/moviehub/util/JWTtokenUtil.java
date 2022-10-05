@@ -2,7 +2,9 @@ package com.example.moviehub.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.example.moviehub.collection.JWTSubject;
 import com.example.moviehub.collection.User;
+import com.google.gson.Gson;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -14,19 +16,24 @@ public class JWTtokenUtil {
 
     private static final String issuer = "MovieHub";
     private static final String secret = "secretKey";
-
-
     public static Map<String, String> generateToken(User user){
+
+        Gson gson = new Gson();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("email", user.getEmail());
+        map.put("refresh", false);
+
         Algorithm algorithm = Algorithm.HMAC256(secret);
         String access_token = JWT.create()
-                .withSubject(user.getEmail())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
+                .withSubject(gson.toJson(map))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000))
                 .withIssuer(issuer)
                 .sign(algorithm);
 
+        map.put("refresh", true);
         String refresh_token = JWT.create()
-                .withSubject(user.getEmail())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000))
+                .withSubject(gson.toJson(map))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000))
                 .withIssuer(issuer)
                 .sign(algorithm);
 
@@ -37,25 +44,35 @@ public class JWTtokenUtil {
         return tokens;
     }
 
-    public static Boolean validateToken(String token){
+    public static void validateToken(String token){
+
         try{
-            Long expiresAt = JWT.decode(token).getExpiresAt().getTime();
-            Calendar cal = Calendar.getInstance();
-            if (expiresAt >= cal.getTime().getTime()){
-                return true;
-            }
-
-
-        }catch (IllegalArgumentException e){
-            System.out.println(String.format("JWT is invalid - {%s}", e.getMessage()));
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            JWT.require(algorithm).build().verify(token);
+        }catch (Exception e){
+            throw e;
         }
-        return false;
+
     }
 
-    public static String getUserEmail(String token){
+    public static String parseJson(String token){
         String subject = JWT.decode(token).getSubject();
 
         System.out.println("token_subject:" +  subject);
-        return  subject;
+        return  JsonUtil.parseJson(subject).getEmail();
+    }
+
+    public static Boolean isRefresh(String token){
+        String subject = JWT.decode(token).getSubject();
+
+        return  JsonUtil.parseJson(subject).isRefresh();
+    }
+
+    public static JWTSubject decode(String token){
+        String jwtSubject = JWT.decode(token).getSubject();
+
+        Gson gson = new Gson();
+        JWTSubject subject = gson.fromJson(jwtSubject, JWTSubject.class);
+        return subject;
     }
 }
