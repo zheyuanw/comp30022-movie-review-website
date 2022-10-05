@@ -70,7 +70,6 @@ public class JWTtokenUtil {
 
     public static JWTSubject decode(String token){
         String jwtSubject = JWT.decode(token).getSubject();
-
         Gson gson = new Gson();
         JWTSubject subject = gson.fromJson(jwtSubject, JWTSubject.class);
         return subject;
