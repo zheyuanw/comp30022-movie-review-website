@@ -29,23 +29,16 @@
 
 <style>
  
-  body {
-background-color: #222231;
+body {
+  background-color: #222231;
 }
-  .header{
+.header{
   background-color: black;
 
-  }
-
-
+}
 .main{
   background-color: white;
   height:64px;
   
 }
-
-
-
-
-
 </style>

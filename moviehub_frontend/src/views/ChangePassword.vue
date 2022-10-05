@@ -14,7 +14,14 @@
         status-icon
         >
           
-        
+        <el-form-item class = "languagecolour1" label="Original Password" prop="oripass">
+      <el-input
+        class = "inputform"
+        v-model="ruleForm.checkPass"
+        type="password"
+        autocomplete="off"
+      />
+    </el-form-item>
   <el-form-item class = "languagecolour1" label="New Password" prop="checkPass">
       <el-input
         class = "inputform"
@@ -44,13 +51,26 @@ import type { FormInstance } from 'element-plus'
 import HubIcon from '@/components/HubIcon.vue';
 import AvatarIcon from '@/components/AvatarIcon.vue';
 const ruleFormRef = ref<FormInstance>()
+  const validatePass1 = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('Please input the password'))
+  } else {
+    if (value!='' && ((ruleForm.checkPass.length < 8 || ruleForm.checkPass.length > 16))){
+      callback(new Error('Please input correct form of password'))
+    }
+    if (ruleForm.confirmPass !== '') {
+      if (!ruleFormRef.value) return
+      ruleFormRef.value.validateField('confirmPass', () => null)
+    }
+    callback()
+  }
+}
 
 const validatePass2 = (rule: any, value: any, callback: any) => {
   if (value === '') {
     callback(new Error('Please input the password'))
   } else {
     if (value!='' && ((ruleForm.checkPass.length < 8 || ruleForm.checkPass.length > 16))){
-      console.log("密码格式错误")
       callback(new Error('Please input correct form of password'))
     }
     if (ruleForm.confirmPass !== '') {
@@ -70,14 +90,14 @@ const validatePass3 = (rule: any, value: any, callback: any) => {
   }
 }
 const rules = reactive({
-
+  oripass:[{ validator: validatePass1, trigger: 'blur' }],
   checkPass: [{ validator: validatePass2, trigger: 'blur' }],
   confirmPass: [{ validator: validatePass3, rigger: 'blur' }],
   
 })
 
 const ruleForm = reactive({
-  
+  oripass:'',
   checkPass: '',
   confirmPass: '',
   
