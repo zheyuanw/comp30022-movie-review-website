@@ -2,6 +2,7 @@ package com.example.moviehub.controller;
 
 
 import com.example.moviehub.collection.ForgotPasswrodForm;
+import com.example.moviehub.collection.JWTSubject;
 import com.example.moviehub.collection.RegisterForm;
 import com.example.moviehub.collection.User;
 import com.example.moviehub.service.Impl.RegisterServiceImpl;
@@ -15,6 +16,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/user")
@@ -102,9 +106,26 @@ public class UserController {
         }
 
         return ResponseEntity.ok().body(JsonUtil.toJsonString("Email Sent"));
-
     }
 
 
+    @PostMapping(value = "/refresh")
+    public ResponseEntity refreshToken(HttpServletRequest request, HttpServletResponse response){
 
+//        System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
+        String authorizationHeader = request.getHeader("Authorization");
+//        System.out.println(authorizationHeader);
+        String jwtToken = authorizationHeader.substring(7);
+
+        JWTSubject subject = JWTtokenUtil.decode(jwtToken);
+
+        if (subject.isRefresh()){
+            return ResponseEntity.ok().body(JsonUtil.toJsonString("Refresh Token",
+                    JWTtokenUtil.generateAccessToken(subject.getEmail())));
+        }else{
+            return ResponseEntity.badRequest().body(JsonUtil.toJsonString("Invalid Token"));
+        }
+
+
+    }
 }

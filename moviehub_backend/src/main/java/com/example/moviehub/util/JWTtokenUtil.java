@@ -16,11 +16,11 @@ public class JWTtokenUtil {
 
     private static final String issuer = "MovieHub";
     private static final String secret = "secretKey";
-    public static Map<String, String> generateToken(User user){
 
+    public static String generateAccessToken(String email){
         Gson gson = new Gson();
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("email", user.getEmail());
+        map.put("email", email);
         map.put("refresh", false);
 
         Algorithm algorithm = Algorithm.HMAC256(secret);
@@ -30,6 +30,15 @@ public class JWTtokenUtil {
                 .withIssuer(issuer)
                 .sign(algorithm);
 
+        return access_token;
+    }
+
+    public static String generateRefreshToken(String email){
+        Gson gson = new Gson();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("email", email);
+
+        Algorithm algorithm = Algorithm.HMAC256(secret);
         map.put("refresh", true);
         String refresh_token = JWT.create()
                 .withSubject(gson.toJson(map))
@@ -37,9 +46,33 @@ public class JWTtokenUtil {
                 .withIssuer(issuer)
                 .sign(algorithm);
 
+        return refresh_token;
+    }
+
+    public static Map<String, String> generateToken(User user){
+
+//        Gson gson = new Gson();
+//        Map<String, Object> map = new HashMap<String, Object>();
+//        map.put("email", user.getEmail());
+//        map.put("refresh", false);
+//
+//        Algorithm algorithm = Algorithm.HMAC256(secret);
+//        String access_token = JWT.create()
+//                .withSubject(gson.toJson(map))
+//                .withExpiresAt(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000))
+//                .withIssuer(issuer)
+//                .sign(algorithm);
+//
+//        map.put("refresh", true);
+//        String refresh_token = JWT.create()
+//                .withSubject(gson.toJson(map))
+//                .withExpiresAt(new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000))
+//                .withIssuer(issuer)
+//                .sign(algorithm);
+
         Map<String, String> tokens = new HashMap<>();
-        tokens.put("access_token", access_token);
-        tokens.put("refresh_token", refresh_token);
+        tokens.put("access_token", generateAccessToken(user.getEmail()));
+        tokens.put("refresh_token", generateRefreshToken(user.getEmail()));
 
         return tokens;
     }

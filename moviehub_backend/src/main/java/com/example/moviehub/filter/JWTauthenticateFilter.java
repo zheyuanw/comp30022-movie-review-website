@@ -52,9 +52,14 @@ public class JWTauthenticateFilter extends OncePerRequestFilter {
 
                 if (subject.isRefresh()){
                     if (!request.getServletPath().equals("/user/refresh")){
-                        System.out.println("This is not an access token");
-                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "This is not an access token");
-                        response.setContentType("text/plain");
+                        String error_message = "Token Invalid";
+                        logger.warn(error_message);
+                        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                        response.setHeader("error", error_message);
+                        Map<String, String> error = new HashMap<>();
+                        error.put("error_message", error_message);
+                        response.setContentType("application/json");
+                        new ObjectMapper().writeValue(response.getOutputStream(),error);
                         return;
                     }
                 }

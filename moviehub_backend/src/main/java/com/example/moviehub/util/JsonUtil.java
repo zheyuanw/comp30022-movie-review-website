@@ -17,11 +17,11 @@ public class JsonUtil {
         return response.toString();
     }
 
-    public static String toJsonString(String message, Object body){
+    public static String toJsonString(String message, Object data){
         Gson gson = new Gson();
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("message", message);
-        map.put("body", body);
+        map.put("body", data);
         return gson.toJson(map);
     }
 
