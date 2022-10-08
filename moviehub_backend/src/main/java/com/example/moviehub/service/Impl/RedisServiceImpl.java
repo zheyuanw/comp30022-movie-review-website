@@ -41,4 +41,16 @@ public class RedisServiceImpl implements RedisService {
         stringRedisTemplate.delete(key);
         setString(key, value);
     }
+
+    public Boolean verifyCode(String email, String code){
+        if (existKey(email)){
+            if (getString(email).equals(code)){
+                stringRedisTemplate.delete(email);
+                return Boolean.TRUE;
+            }
+        }
+
+        return Boolean.FALSE;
+    }
+
 }
