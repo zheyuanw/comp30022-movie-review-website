@@ -25,13 +25,9 @@ public class Post {
 
     @Id
     private String id;
-
     private String userId;
     private String movieName;
-
     private String content;
-
-
     private double rating;
     @CreatedDate
     private Date createdDate;

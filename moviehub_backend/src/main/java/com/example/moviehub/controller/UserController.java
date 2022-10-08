@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -72,14 +74,15 @@ public class UserController {
     @PostMapping(value = "/login")
     public ResponseEntity login(@RequestBody User user) {
         System.out.println(user);
+        String userid = userService.loginUser(user);
 
-        if (userService.loginUser(user)){
+        if (userid != null){
 
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
+            Map<String, String> body = JWTtokenUtil.generateToken(user);
+            body.put("id", userid);
 
 
-
-            return ResponseEntity.ok(JsonUtil.toJsonString("Login Succeed", JWTtokenUtil.generateToken(user)));
+            return ResponseEntity.ok(JsonUtil.toJsonString("Login Succeed", body));
         }else{
             return ResponseEntity.badRequest().body(JsonUtil.toJsonString("Login failed"));
         }

@@ -25,6 +25,11 @@ public class JsonUtil {
         return gson.toJson(map);
     }
 
+    public static String toJsonString(Object data){
+        Gson gson = new Gson();
+        return gson.toJson(data);
+    }
+
     public static JWTSubject parseJson(String jsonString){
         Gson gson = new Gson();
         JWTSubject subject = gson.fromJson(jsonString, JWTSubject.class);

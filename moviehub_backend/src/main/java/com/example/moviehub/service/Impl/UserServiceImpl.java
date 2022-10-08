@@ -99,19 +99,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Boolean loginUser(User user) {
+    public String loginUser(User user) {
         User temp = userRepository.findUserByEmail(user.getEmail());
         if (temp==null){
             String error_msg = "Wrong email";
             System.out.println(error_msg);
-            return false;
+            return null;
         }else{
             if (temp.getPassword().equals(user.getPassword())){
                 System.out.println("Login Success");
-                return true;
+                return temp.getId();
             }else{
                 System.out.println("Wrong password");
-                return false;
+                return null;
             }
         }
     }
