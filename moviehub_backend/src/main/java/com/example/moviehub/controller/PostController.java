@@ -51,9 +51,16 @@ public class PostController {
         return id;
     }
 
-    @GetMapping("/{userid}")
+    @GetMapping("/user={userId}")
     public List<Post> getPostByUserId(@PathVariable String userId){
-        return postServiceImpl.getPostByUserId(userId);
+        return postServiceImpl.getPostByUserId(userId.replaceAll("\\{|\\}", ""));
+    }
+
+    @GetMapping("/movie={movieId}")
+    public List<Post> getPostByMovieId(@PathVariable String movieId){
+//        String mid = movieId.replaceAll("\\{|\\}", "");
+//        System.out.println(mid);
+        return postServiceImpl.getPostByMovieId(movieId.replaceAll("\\{|\\}", ""));
     }
 
     @GetMapping("/getPostByName")

@@ -53,6 +53,10 @@ public class PostServiceImpl implements PostService {
         return postRepository.findByUserId(userId);
     }
 
+    public List<Post> getPostByMovieId(String movieId){
+        return postRepository.findByMovieId(movieId);
+    }
+
     public List<Post> getPostByName(String movieName) {
 
         return postRepository.findByMovieName(movieName);
