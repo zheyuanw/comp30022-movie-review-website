@@ -131,4 +131,9 @@ public class UserController {
 
 
     }
+
+    @PostMapping(value = "/verify")
+    public ResponseEntity verifyToken(){
+        return ResponseEntity.ok().body(JsonUtil.toJsonString("Correct credential"));
+    }
 }
