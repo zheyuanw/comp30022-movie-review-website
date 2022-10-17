@@ -1,6 +1,6 @@
 package com.example.moviehub.service;
 
-import com.example.moviehub.collection.RegisterForm;
+import com.example.moviehub.collection.form.RegisterForm;
 import com.example.moviehub.collection.User;
 
 public interface UserService {

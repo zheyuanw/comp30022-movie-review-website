@@ -2,7 +2,9 @@ package com.example.moviehub.controller;
 
 
 import com.example.moviehub.collection.Post;
+import com.example.moviehub.collection.form.PostForm;
 import com.example.moviehub.service.Impl.PostServiceImpl;
+import com.example.moviehub.service.Impl.UserServiceImpl;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,9 +20,14 @@ public class PostController {
     @Autowired
     private PostServiceImpl postServiceImpl;
 
+    @Autowired
+    private UserServiceImpl userServiceImpl;
+
+
     @PostMapping
-    public Post save (@RequestBody Post post){
-        return postServiceImpl.savePost(post);
+    public Post save (@RequestBody PostForm postForm){
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return postServiceImpl.publishPost(postForm, userServiceImpl.getUserByEmail(email));
     }
 
     @PutMapping

@@ -1,6 +1,8 @@
 package com.example.moviehub.service.Impl;
 
 import com.example.moviehub.collection.Post;
+import com.example.moviehub.collection.User;
+import com.example.moviehub.collection.form.PostForm;
 import com.example.moviehub.repository.PostRepository;
 import com.example.moviehub.service.PostService;
 import org.bson.Document;
@@ -26,6 +28,14 @@ public class PostServiceImpl implements PostService {
     public Post savePost(Post post) {
 
         return postRepository.save(post);
+    }
+
+    public Post publishPost(PostForm postForm, User user){
+        return postRepository.save(
+                new Post(user.getId(),
+                        postForm.getMovieId(),
+                        postForm.getReview(),
+                        postForm.getRate()));
     }
 
     public Post updatePost(Post post) {

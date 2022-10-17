@@ -1,8 +1,8 @@
 package com.example.moviehub.service.Impl;
 
 
-import com.example.moviehub.collection.ForgotPasswrodForm;
-import com.example.moviehub.collection.RegisterForm;
+import com.example.moviehub.collection.form.ForgotPasswrodForm;
+import com.example.moviehub.collection.form.RegisterForm;
 import com.example.moviehub.collection.User;
 import com.example.moviehub.repository.UserRepository;
 import com.example.moviehub.service.UserService;

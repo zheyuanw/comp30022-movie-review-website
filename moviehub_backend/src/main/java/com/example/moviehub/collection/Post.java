@@ -26,6 +26,7 @@ public class Post {
     @Id
     private String id;
     private String userId;
+    private String movieId;
     private String movieName;
     private String content;
     private double rating;
@@ -42,5 +43,26 @@ public class Post {
         this.rating = rating;
         this.createdDate = createdDate;
         this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public Post(String id, String userId, String movieId, String movieName, String content, double rating, Date createdDate, Date lastModifiedDate) {
+        this.id = id;
+        this.userId = userId;
+        this.movieId = movieId;
+        this.movieName = movieName;
+        this.content = content;
+        this.rating = rating;
+        this.createdDate = createdDate;
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public Post() {
+    }
+
+    public Post(String userId, String moiveId,String content, double rating) {
+        this.userId = userId;
+        this.movieId = moiveId;
+        this.rating = rating;
+        this.content = content;
     }
 }

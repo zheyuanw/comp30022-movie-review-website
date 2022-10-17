@@ -1,4 +1,4 @@
-package com.example.moviehub.collection;
+package com.example.moviehub.collection.form;
 
 public class ForgotPasswrodForm {
     private String email;

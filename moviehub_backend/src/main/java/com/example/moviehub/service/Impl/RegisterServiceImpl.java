@@ -1,7 +1,6 @@
 package com.example.moviehub.service.Impl;
 
-import com.example.moviehub.collection.RegisterForm;
-import com.example.moviehub.collection.User;
+import com.example.moviehub.collection.form.RegisterForm;
 import com.example.moviehub.service.RegisterService;
 import com.example.moviehub.util.VerificationCodeUtil;
 import lombok.RequiredArgsConstructor;

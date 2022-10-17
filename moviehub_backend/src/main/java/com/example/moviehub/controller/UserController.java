@@ -1,9 +1,9 @@
 package com.example.moviehub.controller;
 
 
-import com.example.moviehub.collection.ForgotPasswrodForm;
+import com.example.moviehub.collection.form.ForgotPasswrodForm;
 import com.example.moviehub.collection.JWTSubject;
-import com.example.moviehub.collection.RegisterForm;
+import com.example.moviehub.collection.form.RegisterForm;
 import com.example.moviehub.collection.User;
 import com.example.moviehub.service.Impl.RegisterServiceImpl;
 import com.example.moviehub.service.Impl.UserServiceImpl;
@@ -12,14 +12,10 @@ import com.example.moviehub.util.JsonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
 import java.util.Map;
 
 @RestController
