@@ -1,8 +1,10 @@
 package com.example.moviehub.controller;
 
 
+import com.example.moviehub.collection.Like;
 import com.example.moviehub.collection.Post;
 import com.example.moviehub.collection.form.PostForm;
+import com.example.moviehub.service.Impl.LikeServiceImpl;
 import com.example.moviehub.service.Impl.PostServiceImpl;
 import com.example.moviehub.service.Impl.UserServiceImpl;
 import com.example.moviehub.util.JsonUtil;
@@ -24,6 +26,9 @@ public class PostController {
 
     @Autowired
     private UserServiceImpl userServiceImpl;
+
+    @Autowired
+    private LikeServiceImpl likeServiceImpl;
 
 
     @PostMapping
@@ -52,12 +57,6 @@ public class PostController {
         postServiceImpl.deletePost(id);
         return id;
     }
-
-//    @GetMapping("/user={userId}")
-//    public List<Post> getPostByUserId(@PathVariable String userId){
-//        return postServiceImpl.getPostByUserId(userId.replaceAll("\\{|\\}", ""));
-//    }
-
     @GetMapping("/user={userId}")
     public ResponseEntity<String> getPostByUserId(@PathVariable String userId){
         List<Post> body = postServiceImpl.getPostByUserId(userId.replaceAll("\\{|\\}", ""));
@@ -70,6 +69,39 @@ public class PostController {
 //        System.out.println(mid);
         List<Post> body = postServiceImpl.getPostByMovieId(movieId.replaceAll("\\{|\\}", ""));
         return ResponseEntity.ok().body(JsonUtil.toJsonString("Search Succeed", body));
+    }
+
+
+    @PostMapping("/post={postId}/like")
+    public ResponseEntity<String> likePost(@PathVariable String postId){
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (likeServiceImpl.like(postId, email)){
+            return ResponseEntity.ok().body(JsonUtil.toJsonString("Like Operation Succeed"));
+        }else{
+            return ResponseEntity.badRequest().body(JsonUtil.toJsonString("Like Operation Failed"));
+        }
+    }
+
+    @PostMapping("/post={postId}/dislike")
+    public ResponseEntity<String> dislikePost(@PathVariable String postId){
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (likeServiceImpl.dislike(postId, email)){
+            return ResponseEntity.ok().body(JsonUtil.toJsonString("Dislike Operation Succeed"));
+        }else{
+            return ResponseEntity.badRequest().body(JsonUtil.toJsonString("Dislike Operation Failed"));
+        }
+    }
+
+    @GetMapping("/post={postId}/like")
+    public ResponseEntity<String> getPostLike(@PathVariable String postId){
+        return ResponseEntity.ok().body(JsonUtil.toJsonString("Operation Succeed",
+                likeServiceImpl.countLikeDislike(postId, Like.Status.LIKE)));
+    }
+
+    @GetMapping("/post={postId}/dislike")
+    public ResponseEntity<String> getPostDislike(@PathVariable String postId){
+        return ResponseEntity.ok().body(JsonUtil.toJsonString("Operation Succeed",
+                likeServiceImpl.countLikeDislike(postId, Like.Status.DISLIKE)));
     }
 
     @GetMapping("/getPostByName")
