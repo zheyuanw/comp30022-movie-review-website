@@ -29,4 +29,13 @@ public class likeId implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
+    @Override
+    public String toString() {
+        return "likeId{" +
+                "postId='" + postId + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
