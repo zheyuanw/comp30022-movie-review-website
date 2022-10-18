@@ -5,8 +5,10 @@ import com.example.moviehub.collection.Post;
 import com.example.moviehub.collection.form.PostForm;
 import com.example.moviehub.service.Impl.PostServiceImpl;
 import com.example.moviehub.service.Impl.UserServiceImpl;
+import com.example.moviehub.util.JsonUtil;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -51,16 +53,23 @@ public class PostController {
         return id;
     }
 
+//    @GetMapping("/user={userId}")
+//    public List<Post> getPostByUserId(@PathVariable String userId){
+//        return postServiceImpl.getPostByUserId(userId.replaceAll("\\{|\\}", ""));
+//    }
+
     @GetMapping("/user={userId}")
-    public List<Post> getPostByUserId(@PathVariable String userId){
-        return postServiceImpl.getPostByUserId(userId.replaceAll("\\{|\\}", ""));
+    public ResponseEntity<String> getPostByUserId(@PathVariable String userId){
+        List<Post> body = postServiceImpl.getPostByUserId(userId.replaceAll("\\{|\\}", ""));
+        return ResponseEntity.ok().body(JsonUtil.toJsonString("Search Succeed", body));
     }
 
     @GetMapping("/movie={movieId}")
-    public List<Post> getPostByMovieId(@PathVariable String movieId){
+    public ResponseEntity<String> getPostByMovieId(@PathVariable String movieId){
 //        String mid = movieId.replaceAll("\\{|\\}", "");
 //        System.out.println(mid);
-        return postServiceImpl.getPostByMovieId(movieId.replaceAll("\\{|\\}", ""));
+        List<Post> body = postServiceImpl.getPostByMovieId(movieId.replaceAll("\\{|\\}", ""));
+        return ResponseEntity.ok().body(JsonUtil.toJsonString("Search Succeed", body));
     }
 
     @GetMapping("/getPostByName")
