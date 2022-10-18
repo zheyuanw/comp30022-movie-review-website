@@ -10,11 +10,11 @@ public class PostForm {
 
     private String movieId;
     private String review;
-    private Double rate;
+    private Double rating;
 
-    public PostForm(String movieId, String review, Double rate) {
+    public PostForm(String movieId, String review, Double rating) {
         this.movieId = movieId;
         this.review = review;
-        this.rate = rate;
+        this.rating = rating;
     }
 }

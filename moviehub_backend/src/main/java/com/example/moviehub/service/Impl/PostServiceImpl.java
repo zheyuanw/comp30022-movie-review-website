@@ -35,7 +35,7 @@ public class PostServiceImpl implements PostService {
                 new Post(user.getId(),
                         postForm.getMovieId(),
                         postForm.getReview(),
-                        postForm.getRate()));
+                        postForm.getRating()));
     }
 
     public Post updatePost(Post post) {
