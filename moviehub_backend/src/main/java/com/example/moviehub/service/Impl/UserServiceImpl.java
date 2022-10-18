@@ -95,7 +95,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             redisService.setString(email, code);
         }
         System.out.println(code);
-        emailService.sendMail(email, "Verification Code for resetting password", code);
+        emailService.sendHtmlMail(email, "Verification Code for resetting password", "Resetting Password", code);
+//        emailService.sendMail(email, "Verification Code for resetting password",  code);
     }
 
     @Override
