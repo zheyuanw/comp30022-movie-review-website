@@ -14,6 +14,6 @@ public class CrossOriginConfig implements WebMvcConfigurer {
                 .allowCredentials(true)
                 .allowedHeaders("*")
                 .exposedHeaders("Authorization")
-                .allowedMethods(new String[]{"GET","POST","PUT","DELETE"});
+                .allowedMethods(new String[]{"GET","POST","PUT","DELETE", "OPTIONS"});
     }
 }
