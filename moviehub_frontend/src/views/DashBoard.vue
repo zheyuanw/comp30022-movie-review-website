@@ -12,11 +12,11 @@
         <el-main>
           <el-space direction="vertical" class="reviewcard">
               <el-card v-for="(item,index) in getcontent" :key="index" class="box-card" 
-              style="width: 830px;height:150px">
+              style="width: 830px">
                 
-                  <div class="card-header">
+                  <div class="card-header" >
                     
-                    <span>{{getcontent[index].value}}</span>
+                    <span class="content">{{getcontent[index].value}}</span>
                     <el-divider/>
                     <span>rating:{{getrating[index].value}}</span>
                     <el-icon class="editreviewbut" @click="dialogVisible =true"><Edit /></el-icon>
@@ -177,6 +177,11 @@ body {
   background-color: white;
   height:64px;
   
+}
+.content{
+  word-break: break-all;
+  word-wrap: break-word;
+  overflow:hidden;
 }
 .pastreview{
   color:orange;
