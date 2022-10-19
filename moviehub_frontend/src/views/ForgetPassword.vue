@@ -176,6 +176,7 @@ export default {
                                 message: "email is sent",
                                 type: "success",
                             });
+                            console.log(err);
                             this.isDisabled = true;
                             let interval = setInterval(() => {
                                 this.btnMsg = "" + this.time + "seconds";
@@ -188,6 +189,11 @@ export default {
                                 }
                        }, 1000);
                     });
+                }else{
+                  this.$message({
+                     message: "complete the form first!",
+                     type: "error",
+                   })
                 }
             });
         },
@@ -223,6 +229,11 @@ export default {
                         });
                         console.log("Error", err);
                     });
+                }else{
+                  this.$message({
+                      message: "complete the form first!",
+                      type: "error",
+                   })
                 }
             });
         },
@@ -257,12 +268,12 @@ background-image:url('https://wallpapercave.com/dwp2x/wp11089675.jpg');
   font-family: 'Microsoft YaHei';
   font-weight: bold;
   font-size: 26px;
-  color: #111;
+  color: orange;
 }
 .forgot_title {
   margin-bottom: 20px;
   text-align: center;
-  color: #505458;
+  color: orange;
 }
 .registerForm {
   margin-top: 20px;
@@ -288,11 +299,11 @@ background-image:url('https://wallpapercave.com/dwp2x/wp11089675.jpg');
 .tip_area {
   text-align: left;
   font-size: 12px;
-  color: #333;
+  color: orange;
   margin-top: 20px;
 }
 .tip_area a {
-  color: #409eff;
+  color: orange;
 }
 .tip_area p {
   margin-top: 15px;

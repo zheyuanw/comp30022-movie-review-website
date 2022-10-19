@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 const routes = [
-  { path: '/', redirect: '/Moviehub/mainpage/visitor' },
+  { path: '/', redirect: '/Moviehub/loginpage' },
   {
     path: '/Moviehub/loginpage',
     name: 'login',
@@ -10,17 +10,9 @@ const routes = [
     },
     component: () => import('@/views/LoginPage.vue'),
   },
+
   {
-    path: '/Moviehub/mainpage/visitor',
-    name: 'MoviemainPage',
-    meta: {
-      index: true,
-      title: '电影主页面',
-    },
-    component: () => import('@/views/MainPageVisitor.vue'),
-  },
-  {
-    path: '/Moviehub/mainpageuser/:userID',
+    path: '/Moviehub/mainpageuser',
     name: 'MoviemainPage2',
     meta: {
       index: true,
@@ -45,15 +37,6 @@ const routes = [
       title: '编辑',
     },
     component: () => import('@/views/EditPage.vue'),
-  },
-  {
-    path: '/Moviehub/dashboard/post/:userID',
-    name: 'MovieDashbordpost',
-    meta: {
-      index: true,
-      title: '发布',
-    },
-    component: () => import('@/views/PostPage.vue'),
   },
 
   {
@@ -85,16 +68,7 @@ const routes = [
   },
 
   {
-    path: '/Moviehub/contentpage',
-    name: 'ContentPage',
-    meta: {
-      index: true,
-      title: '内容',
-    },
-    component: () => import('@/views/ContentVisitor.vue'),
-  },
-  {
-    path: '/Moviehub/contentpage/:userID',
+    path: '/Moviehub/contentpageuser/:userID',
     name: 'ContentPageUser',
     meta: {
       index: true,
@@ -126,4 +100,25 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
 })
+router.beforeEach((to, from, next) => {
+  if (
+    to.path === '/moviehub/loginpage' ||
+    to.name === 'Register' ||
+    to.name === 'forgetpassword' ||
+    to.name === 'MoviemainPage2' ||
+    to.name === 'ContentPageUser'
+  ) {
+    return next()
+  } else {
+    const tokenStr = window.localStorage.getItem('user')
+    if (!tokenStr) {
+      alert('must login first!!')
+      return next('/moviehub/loginpage')
+    }
+    next()
+  }
+
+  //获取token
+})
+
 export default router

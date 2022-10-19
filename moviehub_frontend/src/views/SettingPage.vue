@@ -26,9 +26,9 @@
             />
           </el-select>
         </el-form-item>
-        <el-form-item class = "languagecolour" label="Age">
+        <!-- <el-form-item class = "languagecolour" label="Age">
     <el-input-number class="ageoption" style = "width: 300px" v-model="age" :min="1" :max="120" @change="handleChange" />
-  </el-form-item>
+  </el-form-item> -->
 
       <el-form-item label="Add avatar:" class="labelcolor">
         <el-upload
@@ -73,14 +73,10 @@ import AvatarIcon from '../components/AvatarIcon.vue';
 
 const input = ref('')
 const value = ref()
-const age = ref(1)
 
 const fileList = ref<UploadUserFile[]>([
 
 ])
-const handleChange = (value: number) => {
-  console.log(value)
-}
 
 const options = [
   {

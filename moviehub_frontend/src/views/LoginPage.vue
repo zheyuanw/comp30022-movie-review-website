@@ -1,6 +1,8 @@
 <template>
   <div id= 'building'>
       <HubIcon></HubIcon>
+
+      
   <div >
     <el-card class="box-card">
       <h2 class = "color">Login</h2>
@@ -47,7 +49,7 @@
 <script>
 import HubIcon from '@/components/HubIcon.vue';
 import request from "@/utils/RequestFile.js";
-import request2 from "@/utils/Request2.js";
+
 export default {
   data() {
       return {
@@ -68,37 +70,52 @@ export default {
               ],
           },
           loading: false,
+          userId:''
       };
   },
   methods: {
       submitForm(formName) {
-          console.log("submit");
-      this.$refs[formName].validate((valid) => {
-      // click login, login animation
-      this.loading = true;
-      // if (valid) {
-      //   console.log("movie")
-      //   request2.get("/k_gh3vr6fp").then(res => {
-      //     console.log("success");
-      //   })
-      // }
-      if (valid) {
-          console.log('submit!')
-          request.post("/user/login", {email: this.ruleForm.uname, password: this.ruleForm.password}).then(res => {
-          if(res.status === 200){
-            console.log("success");
-        
-            this.$router.push('/moviehub/mainpageuser/'+JSON.stringify(res.data));
+          this.$refs[formName].validate((valid) => {
+          // click login, login animation
+          this.loading = true;
+          // if (valid) {
+          //   console.log("movie")
+          //   request2.get("/k_gh3vr6fp").then(res => {
+          //     console.log("success");
+          //   })
+          // }
+          if (valid) {
+              console.log('submit!')
+              request.post("/user/login", {email: this.ruleForm.uname, password: this.ruleForm.password}).then(res => {
+                      
+                    if(res.status === 200){
+                      console.log("success");
+                      localStorage.setItem("user", JSON.stringify(res.data.body.access_token))  
+                      localStorage.setItem("userid", JSON.stringify(res.data.body.id))  
+   
+                      this.$router.push('/moviehub/mainpageuser');
+                      
+                      
+                   }
+              }).catch((err)=>{
+                console.log(err)
+                this.$message({
+                      message: "incorrect password or email!",
+                      type: "error",
+                })
+                this.loading = false;
+                this.ruleForm.uname='';
+                this.ruleForm.password='';
+              })
+                   
+          } else {  
+            console.log("error submit!!");
+
+            this.loading = false;
+            return false;
           }
-        
-    })
-      } else {  
-        console.log("error submit!!");
-        this.loading = false;
-        return false;
-      }
-      });
-  },
+          });
+      },
       resetForm(formName) {
           this.$refs[formName].resetFields();
       },
