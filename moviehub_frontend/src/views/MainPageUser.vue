@@ -56,7 +56,7 @@
     />
   </el-select>
   
-  <el-button @click="searchrelmovie()">Search recommended movies</el-button></div>
+  <el-button @click="searchrelmovie()">recommended</el-button></div>
         <el-divider />
         <!--movie card-->
 
@@ -216,9 +216,7 @@
             if (this.value2!=='' && this.value3===''){
               this.getTopmovies()
             }else if(this.value2==='' && this.value3!==''){
-
               outcome=request2.get("/?genres="+this.value3)
-
             }else if(this.value2==='' && this.value3===''){
               this.getTopmovies()
             }else if(this.value2!=='' && this.value3!==''){

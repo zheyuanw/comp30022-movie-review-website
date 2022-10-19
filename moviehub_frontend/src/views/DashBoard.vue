@@ -104,7 +104,6 @@
           }, {
             value: '3',
             label: '3'
-
           }, {
             value: '4',
             label: '4'
@@ -122,15 +121,12 @@
           review: [
                 { required: true, message: "review cannot be blank", trigger: "blur" },
                 { message: "review cannot be blank", trigger: "change" },
-
           ],
           rating: [
                 { required: true, message: "rating cannot be blank", trigger: "blur" },
                 {  message: "rating cannot be blank", trigger: "change" },
           ],
-
          },
-
         }
       },
       
@@ -143,7 +139,6 @@
            if(res.status===200) {
             for (let i=0;i<res.data.length;i++){
               if(res.data[i].userId===this.$route.params.userID){
-
                 this.getcontent.push({
                   value:res.data[i].content,
                   label:res.data[i].content
@@ -177,7 +172,6 @@ body {
 }
 .header{
   background-color: black;
-
 }
 .main{
   background-color: white;
@@ -191,7 +185,6 @@ body {
 }
 .box_card{
   cursor:pointer;
-
 }
 .editreviewbut{
   position:relative;

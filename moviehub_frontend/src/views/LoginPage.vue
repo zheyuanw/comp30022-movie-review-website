@@ -49,7 +49,6 @@
 <script>
 import HubIcon from '@/components/HubIcon.vue';
 import request from "@/utils/RequestFile.js";
-
 export default {
   data() {
       return {
@@ -110,7 +109,6 @@ export default {
                    
           } else {  
             console.log("error submit!!");
-
             this.loading = false;
             return false;
           }
@@ -149,9 +147,7 @@ height:100%;
 position:fixed;
 background-size:100% 100%;
 }
-
 .btnGroup{
   margin-top: 20px;
 }
-
 </style>

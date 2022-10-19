@@ -170,21 +170,16 @@ import request from '@/utils/RequestFile'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { UploadProps, UploadUserFile } from 'element-plus'
 import { useRouter } from 'vue-router'
-
 const input = ref('')
 const value = ref()
 const age = ref(1)
 //const routeiD=ref(JSON.parse(localStorage.getItem('userid')))
 const fileList = ref<UploadUserFile[]>([
-
 ])
-
-
 const options = [
   {
     value: '0',
     label: 'Male',
-
   },
   {
     value: '1',
@@ -192,7 +187,6 @@ const options = [
   },
   
 ]
-
 const props = defineProps ({
 		routeID:String
 })
@@ -203,11 +197,9 @@ const logout=()=>{
 const handleRemove: UploadProps['onRemove'] = (file, uploadFiles) => {
   console.log(file, uploadFiles)
 }
-
 const handlePreview: UploadProps['onPreview'] = (uploadFile) => {
   console.log(uploadFile)
 }
-
 const handleExceed: UploadProps['onExceed'] = (files, uploadFiles) => {
   ElMessage.warning(
     `The limit is 1, you selected ${files.length} files this time, add up to ${
@@ -215,7 +207,6 @@ const handleExceed: UploadProps['onExceed'] = (files, uploadFiles) => {
     } totally`
   )
 }
-
 const beforeRemove: UploadProps['beforeRemove'] = (uploadFile) => {
   return ElMessageBox.confirm(
     `Cancel the transfert of ${uploadFile.name} ?`
@@ -239,7 +230,6 @@ const ruleFormRef = ref<FormInstance>()
     callback()
   }
 }
-
 const validatePass2 = (rule: any, value: any, callback: any) => {
   if (value === '') {
     callback(new Error('Please input the password'))
@@ -269,7 +259,6 @@ const rules = reactive({
   confirmPass: [{ validator: validatePass3, rigger: 'blur' }],
   
 })
-
 const ruleForm = reactive({
   oripass:'',
   checkPass: '',
@@ -279,7 +268,6 @@ const ruleForm = reactive({
 const dialogVisible = ref(false)
 const dialogVisibleSetting = ref(false)
 const dialogVisibleAvatar = ref(false)
-
 const handleClose = (formEl: FormInstance | undefined) => {
   if (!formEl) return
   formEl.validate((valid) => {
@@ -304,7 +292,6 @@ const handleClose2 = (formEl: FormInstance | undefined) => {
 }
 const handleClose3 = () => {
   console.log('error submit!')
-
 }
   </script>
 <style>
@@ -315,7 +302,6 @@ const handleClose3 = () => {
 }
 .avatar:hover{
   cursor:pointer;
-
 }
 .setting{
     margin-top:10px
@@ -330,16 +316,13 @@ const handleClose3 = () => {
   margin-right:5px;
   margin-bottom: 10px;
 }
-
 .plus{
   margin-right:5px;
 }
 .Sbutton{
   margin-right: 5px;
-
 }
 .logoutbutton{
   margin-top: 10px;
 }
-
 </style>

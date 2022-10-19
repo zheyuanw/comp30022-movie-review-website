@@ -8,7 +8,7 @@
        <el-button type="warning" round class="LRbutton" @click="$router.push('/moviehub/loginpage')">Login/Register</el-button> 
       </div>
       <div v-else>
-        <AvatarIcon :routeID="routeuserID"/>
+        <AvatarIcon :routeID="routeid"/>
       </div>
         </el-header>
         <el-main class="main">
@@ -31,7 +31,6 @@
                         <div class="content">
                           {{getcontent[index].value}}
                         </div>
-
                       </el-collapse-item>
                     </el-collapse> -->
                     <div class="content">
@@ -105,7 +104,6 @@
   import AvatarIcon from '@/components/AvatarIcon.vue';
   import { Plus } from '@element-plus/icons-vue';
   import request from "@/utils/RequestFile.js";
-
   export default{
     data(){
       var validatePass5 = (rule, value, callback) => {
@@ -132,7 +130,6 @@
                 { required: true, message: "rating cannot be blank", trigger: "blur" },
                 {  message: "rating cannot be blank", trigger: "change" },
           ],
-
         },
         posterlink:"",
         imdbrating:"",
@@ -149,7 +146,6 @@
           }, {
             value: '3',
             label: '3'
-
           }, {
             value: '4',
             label: '4'
@@ -178,14 +174,12 @@
       // handleClose(done) {
       //   this.$confirm('Are you sure to close this dialog?')
       //     .then()
-
       // },
       GetAllreviews(){
          request.get("/post/?movieId="+this.$route.params.userID).then(res=>{
            if(res.status===200) {
             for (let i=0;i<res.data.length;i++){
               if(res.data[i].movieId===this.$route.params.userID){
-
                 this.getcontent.push({
                   value:res.data[i].content,
                   label:res.data[i].content
@@ -239,11 +233,9 @@
           }
           })
     },
-
     
   },
   components:{HubIcon,AvatarIcon,Plus},
-
   }
   </script>
   <style scoped>
@@ -266,7 +258,6 @@
 .item {
   padding: 18px 0;
 }
-
 /* .box-card {
   width: 480px;
 } */
@@ -275,7 +266,6 @@
 }
 .header{
   background-color: black;
-
 }
 .LRbutton{
   position:relative;
@@ -290,7 +280,6 @@
   position:relative;
   top:-555px;
   left:200px;
-
 }
 .recommend{
   position:absolute;
@@ -300,7 +289,6 @@
 .box-card{
 width: 30%;
 height: 550px;
-
 }
 .textinput{
    margin-bottom:20px;
