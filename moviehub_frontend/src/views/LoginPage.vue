@@ -77,12 +77,6 @@ export default {
           this.$refs[formName].validate((valid) => {
           // click login, login animation
           this.loading = true;
-          // if (valid) {
-          //   console.log("movie")
-          //   request2.get("/k_gh3vr6fp").then(res => {
-          //     console.log("success");
-          //   })
-          // }
           if (valid) {
               console.log('submit!')
               request.post("/user/login", {email: this.ruleForm.uname, password: this.ruleForm.password}).then(res => {

@@ -62,7 +62,8 @@
 
         <el-space wrap>
           
-            <el-card v-for="(item,i) in movietitle" :key="i" class="box-card" style="width: 250px;margin-right:20px"
+            <el-card v-for="(item,i) in movietitle" :key="i" class="box-card" 
+             style="width: 250px;margin-right:20px"
              @click="jumptoContent(i)">
 
                 <div class="card-header">
@@ -469,6 +470,10 @@
     }
   .box-card{
     cursor:pointer;
+    
+  }
+  .box-card :hover{
+    box-shadow:0 0 16px rgba(33,33,33,.2);
   }
   .filteroptiongroup{
     position:relative;
