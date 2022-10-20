@@ -7,7 +7,8 @@
     "build": "npx vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "start": "npm run serve"
+    "start": "npm run serve",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.9",
