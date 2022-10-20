@@ -5,7 +5,7 @@ module.exports = defineConfig({
     proxy: {
       '/api': {
         target: 'https://moivehub-itproject-team004.herokuapp.com',
-        disableHostCheck: true,
+        allowedHosts: "all",
         changeOrigin: true,
         // pathRewrite: {
         //   '^api': ''
