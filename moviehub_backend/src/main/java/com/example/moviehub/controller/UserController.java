@@ -12,6 +12,7 @@ import com.example.moviehub.util.JsonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -131,5 +132,17 @@ public class UserController {
     @PostMapping(value = "/verify")
     public ResponseEntity verifyToken(){
         return ResponseEntity.ok().body(JsonUtil.toJsonString("Correct credential"));
+    }
+
+
+    @PostMapping(value = "/changePass")
+    public ResponseEntity changePass(@RequestBody String password){
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = new User(email, password);
+        if (userService.changePass(user)){
+            return ResponseEntity.ok().body(JsonUtil.toJsonString("Reset Succeeded"));
+        }else {
+            return ResponseEntity.badRequest().body(JsonUtil.toJsonString("Reset Failed"));
+        }
     }
 }
