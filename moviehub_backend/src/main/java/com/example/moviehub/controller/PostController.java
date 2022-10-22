@@ -3,6 +3,7 @@ package com.example.moviehub.controller;
 
 import com.example.moviehub.collection.Like;
 import com.example.moviehub.collection.Post;
+import com.example.moviehub.collection.User;
 import com.example.moviehub.collection.form.PostForm;
 import com.example.moviehub.service.Impl.LikeServiceImpl;
 import com.example.moviehub.service.Impl.PostServiceImpl;

@@ -7,4 +7,6 @@ public interface UserService {
     Boolean registerUser(RegisterForm registerForm);
     String loginUser(User user);
 
+    void deleteUser(User user);
+
 }

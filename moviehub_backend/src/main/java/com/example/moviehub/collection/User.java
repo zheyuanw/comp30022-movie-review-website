@@ -66,6 +66,10 @@ public class User {
         this.gender = gender;
     }
 
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 
     @Override
     public String toString() {

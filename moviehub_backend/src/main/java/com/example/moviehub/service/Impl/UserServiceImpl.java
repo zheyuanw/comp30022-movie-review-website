@@ -68,6 +68,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
+    public Boolean changePass(User user){
+        User temp_user = userRepository.findUserByEmail(user.getEmail());
+        if (temp_user != null){
+            temp_user.setPassword(user.getPassword());
+            userRepository.save(temp_user);
+            return Boolean.TRUE;
+        }else {
+            return Boolean.FALSE;
+        }
+
+    }
+
     public Boolean forgotPass(ForgotPasswrodForm form){
         if (redisService.verifyCode(form.getEmail(), form.getVerificationCode())){
             User user = userRepository.findUserByEmail(form.getEmail());
@@ -115,6 +127,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 return null;
             }
         }
+    }
+
+    @Override
+    public void deleteUser(User user) {
+        userRepository.delete(user);
     }
 
     @Override
