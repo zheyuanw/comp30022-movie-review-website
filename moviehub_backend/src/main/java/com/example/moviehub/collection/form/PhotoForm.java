@@ -10,9 +10,9 @@ import lombok.Setter;
 
 public class PhotoForm {
 
-    private MultipartFile avatar;
+    private MultipartFile photo;
 
-    public PhotoForm(MultipartFile avatar) {
-        this.avatar = avatar;
+    public PhotoForm(MultipartFile photo) {
+        this.photo = photo;
     }
 }

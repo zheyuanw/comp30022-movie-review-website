@@ -26,7 +26,7 @@ public class PhotoController {
     @PostMapping
     public String addPhoto(@RequestBody PhotoForm form) throws IOException {
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-        String id = photoServiceImpl.addPhoto(form.getAvatar().getOriginalFilename(), form.getAvatar(), userId);
+        String id = photoServiceImpl.addPhoto(form.getPhoto().getOriginalFilename(), form.getPhoto(), userId);
         return  id;
     }
 
@@ -48,7 +48,7 @@ public class PhotoController {
     public String updatePhoto(@RequestBody PhotoForm form) throws IOException {
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         photoServiceImpl.deletePhoto(userId);
-        String pid = photoServiceImpl.addPhoto(form.getAvatar().getOriginalFilename(), form.getAvatar(), userId);
+        String pid = photoServiceImpl.addPhoto(form.getPhoto().getOriginalFilename(), form.getPhoto(), userId);
         return pid;
     }
 }
