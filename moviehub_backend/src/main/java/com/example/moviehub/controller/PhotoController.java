@@ -46,9 +46,9 @@ public class PhotoController {
 
     @PostMapping("/edit")
     public String updatePhoto(@RequestBody PhotoForm form) throws IOException {
-        String userid = SecurityContextHolder.getContext().getAuthentication().getName();
-        photoServiceImpl.deletePhoto(userid);
-        String pid = photoServiceImpl.addPhoto(form.getAvatar().getOriginalFilename(), form.getAvatar(), userid);
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        photoServiceImpl.deletePhoto(userId);
+        String pid = photoServiceImpl.addPhoto(form.getAvatar().getOriginalFilename(), form.getAvatar(), userId);
         return pid;
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface PhotoRepository extends MongoRepository<Photo, String> {
 
-    List<Photo> findByUserid(String userid);
+    List<Photo> findByUserId(String userId);
 
-    void deleteByUserId(String userid);
+    void deleteByUserId(String userId);
 }
