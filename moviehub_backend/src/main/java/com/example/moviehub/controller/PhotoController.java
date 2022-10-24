@@ -25,16 +25,16 @@ public class PhotoController {
 
     @PostMapping
     public String addPhoto(@RequestBody PhotoForm form) throws IOException {
-        String userid = SecurityContextHolder.getContext().getAuthentication().getName();
-        String id = photoServiceImpl.addPhoto(form.getAvatar().getOriginalFilename(), form.getAvatar(), userid);
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        String id = photoServiceImpl.addPhoto(form.getAvatar().getOriginalFilename(), form.getAvatar(), userId);
         return  id;
     }
 
     @GetMapping
     public ResponseEntity<Resource> downloadPhoto() {
-        String userid = SecurityContextHolder.getContext().getAuthentication().getName();
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        Photo photo = photoServiceImpl.getPhoto(userid);
+        Photo photo = photoServiceImpl.getPhoto(userId);
         Resource resource
                 = new ByteArrayResource(photo.getPhoto().getData());
 
