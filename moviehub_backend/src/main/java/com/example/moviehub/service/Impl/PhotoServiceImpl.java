@@ -17,20 +17,21 @@ public class PhotoServiceImpl implements PhotoService {
     @Autowired
     private PhotoRepository photoRepository;
 
-    public String addPhoto(String Filename, MultipartFile image) throws IOException {
+    public String addPhoto(String Filename, MultipartFile image, String userId) throws IOException {
         Photo photo
                 = new Photo();
         photo.setTitle(Filename);
         photo.setPhoto(new Binary(BsonBinarySubType.BINARY,image.getBytes()));
+        photo.setUserId(userId);
         return photoRepository.save(photo).getId();
     }
 
-    public Photo getPhoto(String id) {
-        return photoRepository.findById(id).get();
+    public Photo getPhoto(String userId) {
+        return photoRepository.findByUserId(userId).get(0);
     }
 
-    public void deletePhoto(String id){
-        photoRepository.deleteById(id);
+    public void deletePhoto(String userId){
+        photoRepository.deleteByUserId(userId);
     }
 }
 

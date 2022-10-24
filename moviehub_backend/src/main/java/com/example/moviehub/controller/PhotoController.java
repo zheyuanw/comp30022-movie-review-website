@@ -3,6 +3,8 @@ package com.example.moviehub.controller;
 
 
 import com.example.moviehub.collection.Photo;
+import com.example.moviehub.collection.form.PhotoForm;
+import com.example.moviehub.service.Impl.PhotoServiceImpl;
 import com.example.moviehub.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -10,6 +12,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,30 +21,34 @@ import java.io.IOException;
 @RequestMapping("/photo")
 public class PhotoController {
     @Autowired
-    private PhotoService photoService;
+    private PhotoServiceImpl photoServiceImpl;
 
     @PostMapping
-    public String addPhoto(@RequestParam("image") MultipartFile image) throws IOException {
-        String id = photoService.addPhoto(image.getOriginalFilename(),image);
+    public String addPhoto(@RequestBody PhotoForm form) throws IOException {
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        String id = photoServiceImpl.addPhoto(form.getPhoto().getOriginalFilename(), form.getPhoto(), userId);
         return  id;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Resource> downloadPhoto(@PathVariable String id) {
-        Photo photo = photoService.getPhoto(id);
+    @GetMapping
+    public ResponseEntity<Resource> downloadPhoto() {
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        Photo photo = photoServiceImpl.getPhoto(userId);
         Resource resource
                 = new ByteArrayResource(photo.getPhoto().getData());
 
         return  ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + photo.getTitle() + "\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, photo.getId())
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(resource);
     }
 
     @PostMapping("/edit")
-    public String updatePhoto(@RequestParam("image") MultipartFile image, @RequestParam String id) throws IOException {
-        String pid = photoService.addPhoto(image.getOriginalFilename(),image);
-        photoService.deletePhoto(id);
+    public String updatePhoto(@RequestBody PhotoForm form) throws IOException {
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        photoServiceImpl.deletePhoto(userId);
+        String pid = photoServiceImpl.addPhoto(form.getPhoto().getOriginalFilename(), form.getPhoto(), userId);
         return pid;
     }
 }
