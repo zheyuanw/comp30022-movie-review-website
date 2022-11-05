@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping ("/post")
@@ -55,7 +56,7 @@ public class PostController {
 
     @DeleteMapping("/{id}")
     public String deletePost(@PathVariable String id){
-        postServiceImpl.deletePost(id);
+        postServiceImpl.deletePost(id.replaceAll("\\{|\\}", ""));
         return id;
     }
     @GetMapping("/user={userId}")
