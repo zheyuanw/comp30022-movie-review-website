@@ -39,9 +39,19 @@ public class PostController {
         return postServiceImpl.publishPost(postForm, userServiceImpl.getUserByEmail(email));
     }
 
-    @PutMapping
-    public Post updatePost(@RequestBody Post post){
-        return postServiceImpl.updatePost(post);
+    @PutMapping("/{id}")
+    public ResponseEntity updatePost(@RequestBody PostForm postForm, @PathVariable String id){
+
+        //remove { and } which will be parsed by @PathVariable
+        Optional<Post> optionalPost = postServiceImpl.getPostById(id.replaceAll("\\{|\\}", ""));
+
+        if (optionalPost.isPresent()){
+            Post post = optionalPost.get();
+            postServiceImpl.updatePost(postForm, post);
+            return ResponseEntity.ok().body(JsonUtil.toJsonString("Edit Success"));
+        }else {
+            return ResponseEntity.badRequest().body(JsonUtil.toJsonString("Post Not Found"));
+        }
     }
 
     @GetMapping
@@ -56,19 +66,22 @@ public class PostController {
 
     @DeleteMapping("/{id}")
     public String deletePost(@PathVariable String id){
+        //remove { and } which will be parsed by @PathVariable
         postServiceImpl.deletePost(id.replaceAll("\\{|\\}", ""));
         return id;
     }
     @GetMapping("/user={userId}")
     public ResponseEntity<String> getPostByUserId(@PathVariable String userId){
+
+        //remove { and } which will be parsed by @PathVariable
         List<Post> body = postServiceImpl.getPostByUserId(userId.replaceAll("\\{|\\}", ""));
         return ResponseEntity.ok().body(JsonUtil.toJsonString("Search Succeed", body));
     }
 
     @GetMapping("/movie={movieId}")
     public ResponseEntity<String> getPostByMovieId(@PathVariable String movieId){
-//        String mid = movieId.replaceAll("\\{|\\}", "");
-//        System.out.println(mid);
+
+        //remove { and } which will be parsed by @PathVariable
         List<Post> body = postServiceImpl.getPostByMovieId(movieId.replaceAll("\\{|\\}", ""));
         return ResponseEntity.ok().body(JsonUtil.toJsonString("Search Succeed", body));
     }

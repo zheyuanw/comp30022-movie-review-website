@@ -65,4 +65,18 @@ public class Post {
         this.rating = rating;
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id='" + id + '\'' +
+                ", userId='" + userId + '\'' +
+                ", movieId='" + movieId + '\'' +
+                ", movieName='" + movieName + '\'' +
+                ", content='" + content + '\'' +
+                ", rating=" + rating +
+                ", createdDate=" + createdDate +
+                ", lastModifiedDate=" + lastModifiedDate +
+                '}';
+    }
 }

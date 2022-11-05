@@ -39,8 +39,9 @@ public class PostServiceImpl implements PostService {
                         postForm.getRating()));
     }
 
-    public Post updatePost(Post post) {
-
+    public Post updatePost(PostForm postForm, Post post) {
+        post.setContent(postForm.getReview());
+        post.setRating(postForm.getRating());
         return postRepository.save(post);
     }
 
@@ -78,5 +79,9 @@ public class PostServiceImpl implements PostService {
 
     public void deletePost(String id) {
         postRepository.deleteById(id);
+    }
+
+    public Optional<Post> getPostById(String id){
+        return postRepository.findById(id);
     }
 }

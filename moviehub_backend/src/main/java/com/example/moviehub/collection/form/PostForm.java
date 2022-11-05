@@ -17,4 +17,5 @@ public class PostForm {
         this.review = review;
         this.rating = rating;
     }
+
 }
