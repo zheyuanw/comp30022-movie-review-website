@@ -63,12 +63,12 @@ public class PostServiceImpl implements PostService {
         return postRepository.findByMovieName(movieName);
     }
 
-    public List<Document> getAvgRating(String movieName) {
-        MatchOperation filterMovieName = Aggregation.match(Criteria.where("_id").is(movieName));
+    public List<Document> getAvgRating(String movieId) {
+        MatchOperation filterMovieName = Aggregation.match(Criteria.where("movieId").is(movieId));
 
-        GroupOperation groupByMovieNameAndSumRating = Aggregation.group("movieName","_id").sum("rating").as("totalRating");
+        GroupOperation groupByMovieNameAndSumRating = Aggregation.group("movieId","_id").sum("rating").as("totalRating");
 
-        GroupOperation avgRating = Aggregation.group("_id.movieName").avg("totalRating").as("avgRating");
+        GroupOperation avgRating = Aggregation.group("_id.movieId").avg("totalRating").as("avgRating");
 
         Aggregation aggregation = Aggregation.newAggregation(groupByMovieNameAndSumRating,avgRating,filterMovieName);
 
