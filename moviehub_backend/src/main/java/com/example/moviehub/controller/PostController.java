@@ -125,7 +125,7 @@ public class PostController {
     }
 
     @GetMapping("/getAvgRatingByName")
-    public List<Document> getAvgRating(@RequestParam String movieId){
+    public Document getAvgRating(@RequestParam String movieId){
         return postServiceImpl.getAvgRating(movieId);
     }
 
