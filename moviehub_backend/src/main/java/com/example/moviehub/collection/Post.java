@@ -59,9 +59,9 @@ public class Post {
     public Post() {
     }
 
-    public Post(String userId, String moiveId,String content, double rating) {
+    public Post(String userId, String movieId,String content, double rating) {
         this.userId = userId;
-        this.movieId = moiveId;
+        this.movieId = movieId;
         this.rating = rating;
         this.content = content;
     }

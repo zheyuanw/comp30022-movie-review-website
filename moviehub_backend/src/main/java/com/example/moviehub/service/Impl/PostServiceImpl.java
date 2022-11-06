@@ -65,7 +65,7 @@ public class PostServiceImpl implements PostService {
     }
 
     public List<Document> getAvgRating(String movieId) {
-        MatchOperation filterMovieName = Aggregation.match(Criteria.where("movieId").is(movieId));
+        MatchOperation filterMovieName = Aggregation.match(Criteria.where("_id").is(movieId));
 
         GroupOperation groupByMovieNameAndSumRating = Aggregation.group("movieId","_id").sum("rating").as("totalRating");
 
