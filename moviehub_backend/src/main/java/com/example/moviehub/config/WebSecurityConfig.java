@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/user/forgotPassword/",
                         "/user/forgotPassword/**",
                         "/user/login").permitAll()
-                .antMatchers(HttpMethod.GET,"/post/**" ).permitAll()
+                .antMatchers(HttpMethod.GET).permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated()
                 .and()
