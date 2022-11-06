@@ -1,6 +1,7 @@
 package com.example.moviehub.controller;
 
 
+import com.example.moviehub.collection.form.ChangeSettingForm;
 import com.example.moviehub.collection.form.ForgotPasswrodForm;
 import com.example.moviehub.collection.JWTSubject;
 import com.example.moviehub.collection.form.RegisterForm;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -144,5 +146,32 @@ public class UserController {
         }else {
             return ResponseEntity.badRequest().body(JsonUtil.toJsonString("Reset Failed"));
         }
+    }
+
+    @PostMapping(value = "/changeSettings")
+    public ResponseEntity changeSetting(@RequestBody ChangeSettingForm changeSettingForm){
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.getUserByEmail(email);
+        userService.changeSettings(user, changeSettingForm);
+
+
+//        if (userService.changePass(user)){
+//            return ResponseEntity.ok().body(JsonUtil.toJsonString("Reset Succeeded"));
+//        }else {
+//            return ResponseEntity.badRequest().body(JsonUtil.toJsonString("Reset Failed"));
+//        }
+        return ResponseEntity.ok().body(JsonUtil.toJsonString("Reset Succeeded"));
+    }
+
+    @GetMapping(value = "/info")
+    public ResponseEntity<String> getUserInfo(@RequestBody User temp){
+        System.out.println(temp.toString());
+        Optional<User> optionalUser = userService.getUserById(temp.getId());
+        return optionalUser
+                .map(user -> ResponseEntity.ok().body(JsonUtil.toJsonString("Look Up Success",
+                        userService.getUserInfo(user))))
+                .orElseGet(() -> ResponseEntity.badRequest().body(JsonUtil.toJsonString("User Not Found")));
+
+
     }
 }

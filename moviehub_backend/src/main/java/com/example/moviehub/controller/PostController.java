@@ -56,11 +56,6 @@ public class PostController {
 
     @GetMapping
     public List<Post> getAllPost(){
-        System.out.println("GET /post");
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
-
-        //get useremail from request token
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return postServiceImpl.getAllPost();
     }
 

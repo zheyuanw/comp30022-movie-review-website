@@ -71,6 +71,10 @@ public class User {
         this.password = password;
     }
 
+    public User(String userId) {
+        this.id = userId;
+    }
+
     @Override
     public String toString() {
         return "User{" +

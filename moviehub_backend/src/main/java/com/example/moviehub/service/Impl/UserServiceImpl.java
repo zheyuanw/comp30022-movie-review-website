@@ -1,6 +1,7 @@
 package com.example.moviehub.service.Impl;
 
 
+import com.example.moviehub.collection.form.ChangeSettingForm;
 import com.example.moviehub.collection.form.ForgotPasswrodForm;
 import com.example.moviehub.collection.form.RegisterForm;
 import com.example.moviehub.collection.User;
@@ -14,6 +15,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -142,6 +146,37 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }else {
             return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
         }
+    }
+
+    public Boolean changeSettings(User user, ChangeSettingForm changeSettingForm){
+
+
+        User.Gender gender;
+        if (changeSettingForm.getGender().equalsIgnoreCase("male")){
+            gender = User.Gender.MALE;
+        }else if (changeSettingForm.getGender().equalsIgnoreCase("female")){
+            gender = User.Gender.FEMALE;
+        }else {
+            return Boolean.FALSE;
+        }
+        user.setGender(gender);
+        user.setAge(changeSettingForm.getAge());
+        user.setUsername(changeSettingForm.getUsername());
+
+        userRepository.save(user);
+        return Boolean.TRUE;
+    }
+
+    public Optional<User> getUserById(String userId){
+        return userRepository.findById(userId);
+    }
+
+    public Map<String, Object> getUserInfo(User user){
+        Map<String, Object> userInfo = new HashMap<>();
+        userInfo.put("age", user.getAge());
+        userInfo.put("gender", user.getGender());
+        userInfo.put("username", user.getUsername());
+        return userInfo;
     }
 
 }
