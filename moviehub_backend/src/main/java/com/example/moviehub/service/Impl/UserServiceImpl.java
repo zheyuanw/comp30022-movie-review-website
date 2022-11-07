@@ -1,6 +1,7 @@
 package com.example.moviehub.service.Impl;
 
 
+import com.example.moviehub.collection.form.ChangePasswordForm;
 import com.example.moviehub.collection.form.ChangeSettingForm;
 import com.example.moviehub.collection.form.ForgotPasswrodForm;
 import com.example.moviehub.collection.form.RegisterForm;
@@ -8,6 +9,7 @@ import com.example.moviehub.collection.User;
 import com.example.moviehub.repository.UserRepository;
 import com.example.moviehub.service.UserService;
 import com.example.moviehub.util.VerificationCodeUtil;
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -72,16 +74,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
-    public Boolean changePass(User user){
-        User temp_user = userRepository.findUserByEmail(user.getEmail());
-        if (temp_user != null){
-            temp_user.setPassword(user.getPassword());
-            userRepository.save(temp_user);
-            return Boolean.TRUE;
+    public Boolean changePass(User user, ChangePasswordForm form){
+        if (user != null){
+            if (user.getPassword().equals(form.getOldPass())){
+                user.setPassword(form.getNewPass());
+                userRepository.save(user);
+                return Boolean.TRUE;
+            }else {
+                return Boolean.FALSE;
+            }
+
         }else {
             return Boolean.FALSE;
         }
-
     }
 
     public Boolean forgotPass(ForgotPasswrodForm form){

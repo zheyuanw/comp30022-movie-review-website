@@ -1,6 +1,7 @@
 package com.example.moviehub.controller;
 
 
+import com.example.moviehub.collection.form.ChangePasswordForm;
 import com.example.moviehub.collection.form.ChangeSettingForm;
 import com.example.moviehub.collection.form.ForgotPasswrodForm;
 import com.example.moviehub.collection.JWTSubject;
@@ -138,10 +139,10 @@ public class UserController {
 
 
     @PostMapping(value = "/changePass")
-    public ResponseEntity changePass(@RequestBody String password){
+    public ResponseEntity changePass(@RequestBody ChangePasswordForm form){
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = new User(email, password);
-        if (userService.changePass(user)){
+        User user = userService.getUserByEmail(email);
+        if (userService.changePass(user, form)){
             return ResponseEntity.ok().body(JsonUtil.toJsonString("Reset Succeeded"));
         }else {
             return ResponseEntity.badRequest().body(JsonUtil.toJsonString("Reset Failed"));
@@ -154,12 +155,6 @@ public class UserController {
         User user = userService.getUserByEmail(email);
         userService.changeSettings(user, changeSettingForm);
 
-
-//        if (userService.changePass(user)){
-//            return ResponseEntity.ok().body(JsonUtil.toJsonString("Reset Succeeded"));
-//        }else {
-//            return ResponseEntity.badRequest().body(JsonUtil.toJsonString("Reset Failed"));
-//        }
         return ResponseEntity.ok().body(JsonUtil.toJsonString("Reset Succeeded"));
     }
 

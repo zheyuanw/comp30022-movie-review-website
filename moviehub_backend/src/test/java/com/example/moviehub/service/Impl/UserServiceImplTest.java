@@ -1,7 +1,7 @@
 package com.example.moviehub.service.Impl;
 
 import com.example.moviehub.collection.User;
-import com.example.moviehub.collection.form.RegisterForm;
+import com.example.moviehub.collection.form.ChangePasswordForm;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -76,7 +74,9 @@ class UserServiceImplTest {
     @Test
     @Order(8)
     void changePass(){
-        userService.changePass(new User(email, "changedpass"));
+        User temp = userService.getUserByEmail(email);
+        ChangePasswordForm form = new ChangePasswordForm(password, "changedpass");
+        userService.changePass(temp, form);
         Assert.isTrue(userService.getUserByEmail(email).getPassword().equals("changedpass") );
     }
 
