@@ -9,6 +9,7 @@ import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.GroupOperation;
 import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -64,7 +65,7 @@ public class PostServiceImpl implements PostService {
         return postRepository.findByMovieName(movieName);
     }
 
-    public List<Document> getAvgRating(String movieId) {
+    public Document getAvgRating(String movieId) {
         MatchOperation filterMovieName = Aggregation.match(Criteria.where("_id").is(movieId));
 
         GroupOperation groupByMovieNameAndSumRating = Aggregation.group("movieId","_id").sum("rating").as("totalRating");
@@ -73,8 +74,10 @@ public class PostServiceImpl implements PostService {
 
         Aggregation aggregation = Aggregation.newAggregation(groupByMovieNameAndSumRating,avgRating,filterMovieName);
 
-        List<Document> results = mongoTemplate.aggregate(aggregation, Post.class, Document.class).getMappedResults();
-        return results;
+        AggregationResults<Document> results = mongoTemplate.aggregate(aggregation, Post.class, Document.class);
+
+        Document result = results.getUniqueMappedResult();
+        return result;
     }
 
     public void deletePost(String id) {
