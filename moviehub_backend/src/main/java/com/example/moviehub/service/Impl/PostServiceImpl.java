@@ -34,7 +34,7 @@ public class PostServiceImpl implements PostService {
 
     public Post publishPost(PostForm postForm, User user){
         return postRepository.save(
-                new Post(user.getId(),
+                new Post(user.getEmail(),
                         postForm.getMovieId(),
                         postForm.getReview(),
                         postForm.getRating()));
@@ -56,8 +56,16 @@ public class PostServiceImpl implements PostService {
         return postRepository.findByUserId(userId);
     }
 
-    public List<Post> getPostByMovieId(String movieId){
-        return postRepository.findByMovieId(movieId);
+    public List<Document> getPostByMovieId(String movieId){
+        Aggregation agg = Aggregation.newAggregation(
+                Aggregation.lookup(mongoTemplate.getCollectionName(User.class),
+                        "userId", "email", "userinfo"),
+                Aggregation.match(Criteria.where("movieId").is(movieId))
+        );
+
+        AggregationResults<Document> results = mongoTemplate.aggregate(agg, Post.class,Document.class);
+
+        return  results.getMappedResults();
     }
 
     public List<Post> getPostByName(String movieName) {

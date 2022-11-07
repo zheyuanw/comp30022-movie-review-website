@@ -77,7 +77,7 @@ public class PostController {
     public ResponseEntity<String> getPostByMovieId(@PathVariable String movieId){
 
         //remove { and } which will be parsed by @PathVariable
-        List<Post> body = postServiceImpl.getPostByMovieId(movieId.replaceAll("\\{|\\}", ""));
+        List<Document> body = postServiceImpl.getPostByMovieId(movieId.replaceAll("\\{|\\}", ""));
         return ResponseEntity.ok().body(JsonUtil.toJsonString("Search Succeed", body));
     }
 
