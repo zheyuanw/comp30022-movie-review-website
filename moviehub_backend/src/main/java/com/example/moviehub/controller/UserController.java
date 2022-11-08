@@ -158,10 +158,9 @@ public class UserController {
         return ResponseEntity.ok().body(JsonUtil.toJsonString("Reset Succeeded"));
     }
 
-    @GetMapping(value = "/info")
-    public ResponseEntity<String> getUserInfo(@RequestBody User temp){
-        System.out.println(temp.toString());
-        Optional<User> optionalUser = userService.getUserById(temp.getId());
+    @GetMapping(value = "/info/userId={id}")
+    public ResponseEntity<String> getUserInfo(@PathVariable String id){
+        Optional<User> optionalUser = userService.getUserById(id.replaceAll("\\{|\\}", ""));
         return optionalUser
                 .map(user -> ResponseEntity.ok().body(JsonUtil.toJsonString("Look Up Success",
                         userService.getUserInfo(user))))
