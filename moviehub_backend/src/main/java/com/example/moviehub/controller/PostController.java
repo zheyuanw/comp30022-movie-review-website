@@ -16,7 +16,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -82,7 +84,7 @@ public class PostController {
     }
 
 
-    @PostMapping("/post={postId}/like")
+    @PostMapping("/{postId}/like")
     public ResponseEntity<String> likePost(@PathVariable String postId){
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         if (likeServiceImpl.like(postId, email)){
@@ -92,7 +94,7 @@ public class PostController {
         }
     }
 
-    @PostMapping("/post={postId}/dislike")
+    @PostMapping("/{postId}/dislike")
     public ResponseEntity<String> dislikePost(@PathVariable String postId){
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         if (likeServiceImpl.dislike(postId, email)){
@@ -102,13 +104,24 @@ public class PostController {
         }
     }
 
-    @GetMapping("/post={postId}/like")
+    @GetMapping("/{postId}/like")
     public ResponseEntity<String> getPostLike(@PathVariable String postId){
-        return ResponseEntity.ok().body(JsonUtil.toJsonString("Operation Succeed",
-                likeServiceImpl.countLikeDislike(postId, Like.Status.LIKE)));
+
+        Map<String, String> body = new HashMap<>();
+        body.put("count",likeServiceImpl.countLikeDislike(postId, Like.Status.LIKE).toString());
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (email == null){
+            body.put("status","unkown");
+        }else {
+            Like.Status status = likeServiceImpl.lookup(postId, email);
+            body.put("status", status.toString());
+        }
+
+        return ResponseEntity.ok().body(JsonUtil.toJsonString("Operation Succeed", body
+                ));
     }
 
-    @GetMapping("/post={postId}/dislike")
+    @GetMapping("/{postId}/dislike")
     public ResponseEntity<String> getPostDislike(@PathVariable String postId){
         return ResponseEntity.ok().body(JsonUtil.toJsonString("Operation Succeed",
                 likeServiceImpl.countLikeDislike(postId, Like.Status.DISLIKE)));

@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 public class Like {
 
     public enum Status{
-        LIKE, DISLIKE;
+        LIKE, DISLIKE, UNKNOWN;
     }
 
     @Id

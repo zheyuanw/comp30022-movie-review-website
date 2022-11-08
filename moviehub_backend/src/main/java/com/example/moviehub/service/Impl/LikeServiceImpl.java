@@ -13,6 +13,16 @@ public class LikeServiceImpl implements LikeService {
     @Autowired
     LikeRepository likeRepository;
 
+    public Like.Status lookup(String postId, String email){
+        likeId likeId = new likeId(postId, email);
+        Like like = likeRepository.findById(likeId);
+        if (like != null){
+            return like.getStatus();
+        }else {
+            return Like.Status.UNKNOWN;
+        }
+    }
+
     @Override
     public Boolean like(String postId, String email) {
         try {

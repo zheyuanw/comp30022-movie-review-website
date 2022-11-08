@@ -18,4 +18,6 @@ public interface LikeRepository extends MongoRepository<Like, String> {
     Long countAllByIdAndStatus(likeId id, Like.Status status);
 
     Boolean deleteById(likeId likeId);
+
+    Like findById(likeId likeId);
 }
