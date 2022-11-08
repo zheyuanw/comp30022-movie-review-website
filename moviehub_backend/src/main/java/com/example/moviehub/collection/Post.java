@@ -30,28 +30,21 @@ public class Post {
     private String movieName;
     private String content;
     private double rating;
+
+    private String poster;
     @CreatedDate
     private Date createdDate;
     @LastModifiedDate
     private Date lastModifiedDate;
 
-    public Post(String id, String userId, String movieName, String content, double rating, Date createdDate, Date lastModifiedDate) {
-        this.id = id;
-        this.userId = userId;
-        this.movieName = movieName;
-        this.content = content;
-        this.rating = rating;
-        this.createdDate = createdDate;
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public Post(String id, String userId, String movieId, String movieName, String content, double rating, Date createdDate, Date lastModifiedDate) {
+    public Post(String id, String userId, String movieId, String movieName, String content, double rating, String poster, Date createdDate, Date lastModifiedDate) {
         this.id = id;
         this.userId = userId;
         this.movieId = movieId;
         this.movieName = movieName;
         this.content = content;
         this.rating = rating;
+        this.poster = poster;
         this.createdDate = createdDate;
         this.lastModifiedDate = lastModifiedDate;
     }
@@ -64,6 +57,15 @@ public class Post {
         this.movieId = movieId;
         this.rating = rating;
         this.content = content;
+    }
+
+    public Post(String userId, String movieId, String movieName, String content, double rating, String poster) {
+        this.userId = userId;
+        this.movieId = movieId;
+        this.movieName = movieName;
+        this.content = content;
+        this.rating = rating;
+        this.poster = poster;
     }
 
     @Override

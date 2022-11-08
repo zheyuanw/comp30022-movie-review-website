@@ -35,8 +35,10 @@ public class PostServiceImpl implements PostService {
         return postRepository.save(
                 new Post(user.getId(),
                         postForm.getMovieId(),
+                        postForm.getMovieName(),
                         postForm.getReview(),
-                        postForm.getRating()));
+                        postForm.getRating(),
+                        postForm.getPoster()));
     }
 
     public Post updatePost(PostForm postForm, Post post) {
