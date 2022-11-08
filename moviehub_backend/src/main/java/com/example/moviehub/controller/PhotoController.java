@@ -24,9 +24,9 @@ public class PhotoController {
     private PhotoServiceImpl photoServiceImpl;
 
     @PostMapping
-    public String addPhoto(@RequestBody PhotoForm form) throws IOException {
+    public String addPhoto(@RequestParam ("image") MultipartFile image) throws IOException {
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-        String id = photoServiceImpl.addPhoto(form.getPhoto().getOriginalFilename(), form.getPhoto(), userId);
+        String id = photoServiceImpl.addPhoto(image.getOriginalFilename(), image, userId);
         return  id;
     }
 
