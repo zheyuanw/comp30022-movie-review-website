@@ -26,8 +26,15 @@ public class LikeServiceImpl implements LikeService {
     @Override
     public Boolean like(String postId, String email) {
         try {
+            System.out.println(email);
             likeId likeId = new likeId(postId, email);
-            likeRepository.save(new Like(likeId, postId, Like.Status.LIKE));
+            Like like =  likeRepository.findById(likeId);
+            if (like != null && like.getStatus().equals(Like.Status.LIKE)){
+                likeRepository.delete(like);
+            }else {
+                likeRepository.save(new Like(likeId, postId, Like.Status.LIKE));
+            }
+
             return Boolean.TRUE;
         }catch (Exception e){
             System.out.println(e.getMessage());

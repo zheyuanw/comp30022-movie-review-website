@@ -111,7 +111,7 @@ public class PostController {
         body.put("count",likeServiceImpl.countLikeDislike(postId, Like.Status.LIKE).toString());
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         if (email == null){
-            body.put("status","unkown");
+            body.put("status","UNKNOWN");
         }else {
             Like.Status status = likeServiceImpl.lookup(postId, email);
             body.put("status", status.toString());
