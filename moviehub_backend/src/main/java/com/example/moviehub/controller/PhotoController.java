@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
+
 @RestController
 @RequestMapping("/photo")
 public class PhotoController {
@@ -26,13 +28,17 @@ public class PhotoController {
     @PostMapping
     public String addPhoto(@RequestParam ("image") MultipartFile image) throws IOException {
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        Photo photo = photoServiceImpl.getPhoto(userId);
+        if (photo != null) {
+            photoServiceImpl.deletePhoto(userId);
+        }
         String id = photoServiceImpl.addPhoto(image.getOriginalFilename(), image, userId);
-        return  id;
+
+        return id;
     }
 
-    @GetMapping
-    public ResponseEntity<Resource> downloadPhoto() {
-        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+    @GetMapping("/userId={userId}")
+    public ResponseEntity<Resource> downloadPhoto(@PathVariable String userId) {
 
         Photo photo = photoServiceImpl.getPhoto(userId);
         Resource resource
@@ -44,11 +50,11 @@ public class PhotoController {
                 .body(resource);
     }
 
-    @PostMapping("/edit")
+    /*@PostMapping("/edit")
     public String updatePhoto(@RequestBody PhotoForm form) throws IOException {
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         photoServiceImpl.deletePhoto(userId);
         String pid = photoServiceImpl.addPhoto(form.getPhoto().getOriginalFilename(), form.getPhoto(), userId);
         return pid;
-    }
+    }*/
 }
