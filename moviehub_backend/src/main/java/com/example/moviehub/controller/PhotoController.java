@@ -3,8 +3,10 @@ package com.example.moviehub.controller;
 
 
 import com.example.moviehub.collection.Photo;
+import com.example.moviehub.collection.User;
 import com.example.moviehub.collection.form.PhotoForm;
 import com.example.moviehub.service.Impl.PhotoServiceImpl;
+import com.example.moviehub.service.Impl.UserServiceImpl;
 import com.example.moviehub.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -24,10 +26,14 @@ import java.util.List;
 public class PhotoController {
     @Autowired
     private PhotoServiceImpl photoServiceImpl;
+    @Autowired
+    private UserServiceImpl userServiceImpl;
+
 
     @PostMapping
     public String addPhoto(@RequestParam ("image") MultipartFile image) throws IOException {
-        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        String userId = userServiceImpl.getUserByEmail(email).getId();
         Photo photo = photoServiceImpl.getPhoto(userId);
         if (photo != null) {
             photoServiceImpl.deletePhoto(userId);
@@ -39,8 +45,8 @@ public class PhotoController {
 
     @GetMapping("/userId={userId}")
     public ResponseEntity<Resource> downloadPhoto(@PathVariable String userId) {
-
-        Photo photo = photoServiceImpl.getPhoto(userId);
+        //String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        Photo photo = photoServiceImpl.getPhoto(userId.replaceAll("\\{|\\}", ""));
         Resource resource
                 = new ByteArrayResource(photo.getPhoto().getData());
 
