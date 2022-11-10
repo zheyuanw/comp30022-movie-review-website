@@ -4,7 +4,7 @@ Instructions
 
 To run the app, download code zip to your local directory, then
 
-cd comp30022-movie-review-website
+cd comp30022-movie-review-website-moviehubfrontend
 
 npm install
 
