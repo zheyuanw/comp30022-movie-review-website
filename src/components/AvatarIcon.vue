@@ -39,7 +39,7 @@
   
     <template #reference>
       <div class="avatar1" v-if="this.imageUrl===''">
-        <el-avatar  :icon="UserFilled" 
+        <el-avatar src="https://cdn-icons-png.flaticon.com/512/1144/1144709.png"
         @click="$router.push('/moviehub/dashboard/'+rID)"
           ></el-avatar>
         
