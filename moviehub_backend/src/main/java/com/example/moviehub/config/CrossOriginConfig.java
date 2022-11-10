@@ -10,7 +10,7 @@ public class CrossOriginConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:8080/")
+                .allowedOrigins("http://localhost:8080/", "https://comp30022-1g0z0um13f6fc2ab-1314940906.ap-shanghai.app.tcloudbase.com")
                 .allowCredentials(true)
                 .allowedHeaders("*")
                 .exposedHeaders("Authorization")
