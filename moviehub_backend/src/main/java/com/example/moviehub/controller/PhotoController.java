@@ -46,7 +46,13 @@ public class PhotoController {
     @GetMapping("/userId={userId}")
     public ResponseEntity<Resource> downloadPhoto(@PathVariable String userId) {
         //String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-        Photo photo = photoServiceImpl.getPhoto(userId.replaceAll("\\{|\\}", "")).get(0);
+        List<Photo> photos = photoServiceImpl.getPhoto(userId.replaceAll("\\{|\\}", ""));
+        if(photos.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+
+        Photo photo = photos.get(0);
+
         Resource resource
                 = new ByteArrayResource(photo.getPhoto().getData());
 
@@ -55,7 +61,6 @@ public class PhotoController {
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(resource);
     }
-
     /*@PostMapping("/edit")
     public String updatePhoto(@RequestBody PhotoForm form) throws IOException {
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
