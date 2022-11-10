@@ -13,7 +13,9 @@ npm run serve
 click http://localhost:8080/ then you should see our website
 
 Notice:
+
 1.sometimes when you are directed from one page to another page, UI may be in disorder, simply refresh the page and UI will be in order
+
 2.To see your new posted avatar, simply refresh the page
 
 ## Project setup
