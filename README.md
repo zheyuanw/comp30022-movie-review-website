@@ -8,8 +8,6 @@ cd comp30022-movie-review-website-moviehubfrontend
 
 npm install
 
-npm install element-plus --save
-
 npm run serve
 
 click http://localhost:8080/ then you should see our website
