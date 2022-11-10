@@ -1,5 +1,19 @@
 # moviehub
 
+Instructions
+
+To run the app, download code zip to your local directory, then
+
+cd your_directory
+
+npm install
+
+npm install element-plus --save
+
+npm run serve
+
+click http://localhost:8080/ then you should see our website
+
 ## Project setup
 ```
 npm install
