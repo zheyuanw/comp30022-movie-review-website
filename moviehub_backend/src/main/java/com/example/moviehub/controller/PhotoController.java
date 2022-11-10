@@ -34,8 +34,8 @@ public class PhotoController {
     public String addPhoto(@RequestParam ("image") MultipartFile image) throws IOException {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         String userId = userServiceImpl.getUserByEmail(email).getId();
-        Photo photo = photoServiceImpl.getPhoto(userId);
-        if (photo != null) {
+        List<Photo> photos = photoServiceImpl.getPhoto(userId);
+        if (photos != null) {
             photoServiceImpl.deletePhoto(userId);
         }
         String id = photoServiceImpl.addPhoto(image.getOriginalFilename(), image, userId);
@@ -46,7 +46,7 @@ public class PhotoController {
     @GetMapping("/userId={userId}")
     public ResponseEntity<Resource> downloadPhoto(@PathVariable String userId) {
         //String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-        Photo photo = photoServiceImpl.getPhoto(userId.replaceAll("\\{|\\}", ""));
+        Photo photo = photoServiceImpl.getPhoto(userId.replaceAll("\\{|\\}", "")).get(0);
         Resource resource
                 = new ByteArrayResource(photo.getPhoto().getData());
 
