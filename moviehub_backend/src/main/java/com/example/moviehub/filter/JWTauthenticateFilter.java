@@ -54,7 +54,7 @@ public class JWTauthenticateFilter extends OncePerRequestFilter {
                     if (!request.getServletPath().equals("/user/refresh")){
                         String error_message = "Token Invalid";
                         logger.warn(error_message);
-                        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                         response.setHeader("error", error_message);
                         Map<String, String> error = new HashMap<>();
                         error.put("error_message", error_message);
@@ -79,7 +79,7 @@ public class JWTauthenticateFilter extends OncePerRequestFilter {
                 }
 
             }catch (Exception e){
-                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.setHeader("error", e.getMessage());
                 Map<String, String> error = new HashMap<>();
                 error.put("error_message", e.getMessage());
@@ -95,7 +95,6 @@ public class JWTauthenticateFilter extends OncePerRequestFilter {
             logger.warn("JWT Token not exist or does not begin with Bearer String");
             filterChain.doFilter(request, response);
         }
-
 
 
     }
