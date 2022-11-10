@@ -4,7 +4,7 @@ Instructions
 
 To run the app, download code zip to your local directory, then
 
-cd your_directory
+cd comp30022-movie-review-website
 
 npm install
 
