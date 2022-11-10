@@ -374,7 +374,7 @@ export default{
 }
 
 </script>
-<style>
+<style scoped>
 
   .avatar1{
   position:absolute;

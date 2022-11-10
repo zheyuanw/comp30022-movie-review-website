@@ -12,6 +12,7 @@
           trigger="hover"
           content="after login you can post review, like review, see your own past reviews, post your avatar and much more!"
         >
+        
           <template #reference>
             <el-button type="warning" round class="LRbutton" @click="$router.push('/moviehub/loginpage')">Login/Register</el-button> 
           </template>

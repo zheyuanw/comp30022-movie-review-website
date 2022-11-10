@@ -5,7 +5,7 @@
 </div>
 </template>
 
-<style >
+<style scoped>
  .hub {
   display: inline;
   font-family: sans-serif;
