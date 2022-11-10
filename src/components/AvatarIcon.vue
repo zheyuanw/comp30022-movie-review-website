@@ -38,12 +38,19 @@
   </el-popconfirm>
   
     <template #reference>
-      <div class="avatar1" >
-        <el-avatar 
-        
+      <div class="avatar1" v-if="this.imageUrl===''">
+        <el-avatar  :icon="UserFilled" 
         @click="$router.push('/moviehub/dashboard/'+rID)"
-          ><!--头像--><img :src=this.imageUrl /></el-avatar>
-    </div>
+          ></el-avatar>
+        
+      </div>
+      <div class="avatar1" v-else>
+        <el-avatar 
+      
+        @click="$router.push('/moviehub/dashboard/'+rID)"
+        ><!--头像--><img :src=this.imageUrl /></el-avatar>
+      
+      </div>
     </template>
   </el-popover>
 
